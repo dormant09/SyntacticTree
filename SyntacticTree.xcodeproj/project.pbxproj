@@ -10,6 +10,8 @@
 		CA636DAE1C19936600A56141 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA636DAD1C19936600A56141 /* main.cpp */; };
 		CA636DB61C19940400A56141 /* SyntacticTreeGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA636DB41C19940400A56141 /* SyntacticTreeGenerator.cpp */; settings = {ASSET_TAGS = (); }; };
 		CA636DB91C1994B100A56141 /* SyntacticTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA636DB71C1994B100A56141 /* SyntacticTree.cpp */; settings = {ASSET_TAGS = (); }; };
+		CA636DD01C19D14500A56141 /* Decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA636DCC1C19D14500A56141 /* Decoder.cpp */; settings = {ASSET_TAGS = (); }; };
+		CA636DD11C19D14500A56141 /* SyntacticNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA636DCE1C19D14500A56141 /* SyntacticNode.cpp */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +33,10 @@
 		CA636DB51C19940400A56141 /* SyntacticTreeGenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SyntacticTreeGenerator.hpp; sourceTree = "<group>"; };
 		CA636DB71C1994B100A56141 /* SyntacticTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SyntacticTree.cpp; sourceTree = "<group>"; };
 		CA636DB81C1994B100A56141 /* SyntacticTree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SyntacticTree.hpp; sourceTree = "<group>"; };
+		CA636DCC1C19D14500A56141 /* Decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Decoder.cpp; sourceTree = "<group>"; };
+		CA636DCD1C19D14500A56141 /* Decoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Decoder.hpp; sourceTree = "<group>"; };
+		CA636DCE1C19D14500A56141 /* SyntacticNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SyntacticNode.cpp; sourceTree = "<group>"; };
+		CA636DCF1C19D14500A56141 /* SyntacticNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SyntacticNode.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +74,10 @@
 				CA636DB51C19940400A56141 /* SyntacticTreeGenerator.hpp */,
 				CA636DB71C1994B100A56141 /* SyntacticTree.cpp */,
 				CA636DB81C1994B100A56141 /* SyntacticTree.hpp */,
+				CA636DCC1C19D14500A56141 /* Decoder.cpp */,
+				CA636DCD1C19D14500A56141 /* Decoder.hpp */,
+				CA636DCE1C19D14500A56141 /* SyntacticNode.cpp */,
+				CA636DCF1C19D14500A56141 /* SyntacticNode.hpp */,
 			);
 			path = SyntacticTree;
 			sourceTree = "<group>";
@@ -130,7 +140,9 @@
 			files = (
 				CA636DB91C1994B100A56141 /* SyntacticTree.cpp in Sources */,
 				CA636DB61C19940400A56141 /* SyntacticTreeGenerator.cpp in Sources */,
+				CA636DD01C19D14500A56141 /* Decoder.cpp in Sources */,
 				CA636DAE1C19936600A56141 /* main.cpp in Sources */,
+				CA636DD11C19D14500A56141 /* SyntacticNode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +259,7 @@
 				CA636DB31C19936600A56141 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

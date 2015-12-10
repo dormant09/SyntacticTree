@@ -88,8 +88,13 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::add(SyntacticTree tree, std::
     //들어온 문자가 특정한 역할을 하는 경우
     if(character == "는")
     {
-        if( ! Decoder::endsWithCoda(character) )
+        if( ! Decoder::endsWithCoda(tree.toBeDetermined) )
         {
+            SyntacticTree caseP = tree;
+            caseP.project(PartOfSpeech::NOUN);
+            caseP.toBeDetermined = character;
+            caseP.project(PartOfSpeech::CASE);
+            candidates.push_back(caseP);
         }
     }
     

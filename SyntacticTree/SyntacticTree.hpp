@@ -21,6 +21,14 @@ class SyntacticTree
       
     std::string toBeDetermined;
     
+    std::vector<Phrase*> phraseStack;
+    std::vector<XBar*> xbarStack;
+    std::vector<Head*> headStack;
+    
+    
+    void project(PartOfSpeech::Type pos);
+    
+    
     private :
     
     
