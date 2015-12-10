@@ -7,9 +7,15 @@
 //
 
 #include <iostream>
+#include "SyntacticTreeGenerator.hpp"
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+int main(int argc, const char * argv[])
+{
+    SyntacticTreeGenerator *stg = new SyntacticTreeGenerator();
+    
+    
+    stg->generateTrees("나는 밥을 먹는다");
+    
+    
     return 0;
 }
