@@ -43,11 +43,12 @@ void SyntacticTreeGenerator::generateTrees(std::string str)
             
             for(tIter = oTrees.begin(); tIter != oTrees.end(); tIter++)
             {
-                std::vector<SyntacticTree> candidates = tIter->add(character);
+                
+                std::vector<SyntacticTree> candidates = add(*tIter, character);
                 
                 for(candidate = candidates.begin(); candidate != candidates.end(); candidate++)
                 {
-                    if(candidate->isValid()) nTrees.push_back(*candidate);
+                    nTrees.push_back(*candidate);
                 }
                 
             }
@@ -72,6 +73,30 @@ void SyntacticTreeGenerator::generateTrees(std::string str)
 }
 
 //Private functions
+
+std::vector<SyntacticTree> SyntacticTreeGenerator::add(SyntacticTree tree, std::string character)
+{
+    std::vector<SyntacticTree> candidates;
+    
+    
+    //들어온 문자가 어떤 뜻을 가지는지 모른다고 상정하는 경우
+    SyntacticTree defaultCaseTree = tree;
+    defaultCaseTree.toBeDetermined += character;
+    candidates.push_back(defaultCaseTree);
+    
+    
+    //들어온 문자가 특정한 역할을 하는 경우
+    if(character == "는")
+    {
+        if( ! Decoder::endsWithCoda(character) )
+        {
+        }
+    }
+    
+    
+    
+    return candidates;
+}
 
 bool SyntacticTreeGenerator::isHangeul(char initial)
 {

@@ -19,18 +19,21 @@ class SyntacticTreeGenerator
 
     public :
     
-        SyntacticTreeGenerator();
+    SyntacticTreeGenerator();
     
     
-        static void generateTrees(std::string str);
+    static void generateTrees(std::string str);
+    
     
     
     private :
     
     
-        static bool isHangeul(char initial);
+    static bool isHangeul(char initial);
     
-        static std::vector<SyntacticTree> trees;
+    static std::vector<SyntacticTree> trees;
+    
+    static std::vector<SyntacticTree> add(SyntacticTree tree, std::string character);
     
 };
 #endif /* SyntacticTreeGenerator_hpp */
