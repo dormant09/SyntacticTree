@@ -14,23 +14,38 @@ SyntacticTree::SyntacticTree()
 }
 
 
-void SyntacticTree::project(PartOfSpeech::Type pos)
+void SyntacticTree::project(Head* head)
 {
-    Head* head = new Head(toBeDetermined, pos);
-    headStack.push_back(head);
     
-    XBar* xbar = new XBar(head);
-    xbarStack.push_back(xbar);
-    headStack.pop_back();
-    if(pos == PartOfSpeech::CASE && phraseStack.back()->pos == PartOfSpeech::NOUN)
+    if(phraseStack.empty())
     {
-        xbarStack.back()->complement = phraseStack.back();
-        phraseStack.pop_back();
+        XBar* xbar = new XBar(head);
+        Phrase* phrase = new Phrase(xbar);
+        phraseStack.push_back(phrase);
     }
-    
-    Phrase* phrase = new Phrase(xbar);
-    phraseStack.push_back(phrase);
-    xbarStack.pop_back();
+    else
+    {
+        Head* lastPhraseHead = NULL;
+        lastPhraseHead = phraseStack.back()->getHead();
+        
+        headStack.push_back(head);
+        
+        XBar* xbar = new XBar(head);
+        xbarStack.push_back(xbar);
+        headStack.pop_back();
+        if(typeid(*head) == typeid(Case) && typeid(*lastPhraseHead) == typeid(Noun))
+        {
+            xbar->complement = phraseStack.back();
+            phraseStack.pop_back();
+        }
+        
+        
+        Phrase* phrase = new Phrase(xbar);
+        phraseStack.push_back(phrase);
+        xbarStack.pop_back();
+        
+
+    }
     
     
     toBeDetermined = "";

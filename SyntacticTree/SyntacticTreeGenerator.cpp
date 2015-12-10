@@ -88,12 +88,15 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::add(SyntacticTree tree, std::
     //들어온 문자가 특정한 역할을 하는 경우
     if(character == "는")
     {
+        //앞 단어가 받침이 없을 때만
         if( ! Decoder::endsWithCoda(tree.toBeDetermined) )
         {
             SyntacticTree caseP = tree;
-            caseP.project(PartOfSpeech::NOUN);
-            caseP.toBeDetermined = character;
-            caseP.project(PartOfSpeech::CASE);
+            Noun* n = new Noun(caseP.toBeDetermined);
+            Case* c = new Case(character);
+            
+            caseP.project(n);
+            caseP.project(c);
             candidates.push_back(caseP);
         }
     }

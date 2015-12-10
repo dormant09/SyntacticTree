@@ -12,8 +12,11 @@ Phrase::Phrase(XBar* xbar)
 {
     this->xbarChild = xbar;
     this->spec = NULL;
-    this->pos = xbar->pos;
     
+}
+Head* Phrase::getHead()
+{
+    return xbarChild->getHead();
 }
 
 XBar::XBar(Head* head)
@@ -24,12 +27,25 @@ XBar::XBar(Head* head)
     this->headChild = head;
     this->complement = NULL;
     
-    this->pos = head->pos;
 }
 
+Head* XBar::getHead()
+{
+    if(xbarChild == NULL)
+    {
+        return headChild;
+    }
+    else
+    {
+        return xbarChild->getHead();
+    }
+}
+
+/*
 Head::Head(std::string str, PartOfSpeech::Type pos)
 {
     this->str = str;
     this->pos = pos;
 }
 
+*/

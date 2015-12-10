@@ -15,14 +15,6 @@ class Phrase;
 class XBar;
 class Head;
 
-namespace PartOfSpeech
-{
-    enum Type
-    {
-        NOUN, CASE
-    };
-}
-
 class Phrase
 {
     public :
@@ -33,7 +25,7 @@ class Phrase
     XBar* xbarChild;
     Phrase* spec;
     
-    PartOfSpeech::Type pos;
+    Head* getHead();
     
 };
 class XBar
@@ -49,17 +41,40 @@ class XBar
     Head* headChild;
     Phrase* complement;
     
-    PartOfSpeech::Type pos;
+    
+    Head* getHead();
+    
 };
 class Head
 {
     public :
     
     Head();
-    Head(std::string str, PartOfSpeech::Type pos);
+    Head(std::string str) : str(str) {};
+    
+    virtual int a() = 0;
     
     std::string str;
-    PartOfSpeech::Type pos;
+};
+class Noun : public Head
+{
+    public :
+    
+    Noun();
+    Noun(std::string str) : Head(str) {};
+    
+    int a() {return 1;};
+    
+};
+class Case : public Head
+{
+    public :
+    
+    Case();
+    Case(std::string str) : Head(str) {};
+    
+    int a() {return 2;};
+    
 };
 
 #endif /* SyntacticNode_hpp */

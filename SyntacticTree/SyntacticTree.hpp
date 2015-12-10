@@ -10,6 +10,8 @@
 #define SyntacticTree_hpp
 
 #include <vector>
+#include <typeinfo>
+#include <iostream>
 #include "SyntacticNode.hpp"
 #include "Decoder.hpp"
 
@@ -26,7 +28,7 @@ class SyntacticTree
     std::vector<Head*> headStack;
     
     
-    void project(PartOfSpeech::Type pos);
+    void project(Head *head);
     
     
     private :
