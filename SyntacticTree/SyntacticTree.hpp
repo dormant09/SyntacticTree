@@ -9,11 +9,16 @@
 #ifndef SyntacticTree_hpp
 #define SyntacticTree_hpp
 
+#include <string>
+
 class SyntacticTree
 {
     public :
+    
     SyntacticTree();
     
+    
+    SyntacticTree add(std::string character);
 };
 
 #endif /* SyntacticTree_hpp */

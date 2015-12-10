@@ -13,3 +13,10 @@ SyntacticTree::SyntacticTree()
 {
     
 }
+
+SyntacticTree SyntacticTree::add(std::string character)
+{
+    SyntacticTree tree = *this;
+    
+    return tree;
+}

@@ -10,6 +10,9 @@
 #define SyntacticTreeGenerator_hpp
 
 #include <string>
+#include <iostream>
+#include <vector>
+#include "SyntacticTree.hpp"
 
 class SyntacticTreeGenerator
 {
@@ -18,8 +21,15 @@ class SyntacticTreeGenerator
     SyntacticTreeGenerator();
     
     
-    void generateTrees(std::string str);
+    static void generateTrees(std::string str);
     
+    
+    private :
+    
+    
+    static bool isHangeul(char initial);
+    
+    static std::vector<SyntacticTree> trees;
     
 };
 #endif /* SyntacticTreeGenerator_hpp */
