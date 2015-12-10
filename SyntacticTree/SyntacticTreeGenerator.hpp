@@ -33,7 +33,9 @@ class SyntacticTreeGenerator
     
     static std::vector<SyntacticTree> trees;
     
-    static std::vector<SyntacticTree> add(SyntacticTree tree, std::string character);
+    static std::vector<SyntacticTree> addCharacterToTree(SyntacticTree tree, std::string character);
+    
+    static SyntacticTree projectCasePhrase(SyntacticTree tree, std::string character, Case::Type grammaticalCase);
     
 };
 #endif /* SyntacticTreeGenerator_hpp */
