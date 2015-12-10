@@ -14,6 +14,7 @@ SyntacticTree::SyntacticTree()
     validity = false;
 }
 
+
 std::vector<SyntacticTree> SyntacticTree::add(std::string character)
 {
     std::vector<SyntacticTree> candidates;
@@ -29,7 +30,10 @@ std::vector<SyntacticTree> SyntacticTree::add(std::string character)
     //들어온 문자가 특정한 역할을 하는 경우
     if(character == "는")
     {
-        
+        if( Decoder::endsWithCoda(character) )
+        {
+            
+        }
     }
     
    

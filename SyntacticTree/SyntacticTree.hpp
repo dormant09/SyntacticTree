@@ -9,10 +9,9 @@
 #ifndef SyntacticTree_hpp
 #define SyntacticTree_hpp
 
-#include <string>
-#include <iostream>
 #include <vector>
 #include "SyntacticNode.hpp"
+#include "Decoder.hpp"
 
 class SyntacticTree
 {
