@@ -10,15 +10,32 @@
 #define SyntacticTree_hpp
 
 #include <string>
+#include <iostream>
+#include <vector>
+#include "SyntacticNode.hpp"
 
 class SyntacticTree
 {
     public :
     
-    SyntacticTree();
+        SyntacticTree();
     
     
-    SyntacticTree add(std::string character);
+        std::vector<SyntacticTree> add(std::string character);
+    
+        bool isValid();
+    
+        void setValid();
+    
+    
+    
+    private :
+    
+        bool validity;
+    
+        std::string toBeDetermined;
+    
+    
 };
 
 #endif /* SyntacticTree_hpp */

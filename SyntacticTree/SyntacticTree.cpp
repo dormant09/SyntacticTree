@@ -11,12 +11,42 @@
 
 SyntacticTree::SyntacticTree()
 {
-    
+    validity = false;
 }
 
-SyntacticTree SyntacticTree::add(std::string character)
+std::vector<SyntacticTree> SyntacticTree::add(std::string character)
 {
-    SyntacticTree tree = *this;
+    std::vector<SyntacticTree> candidates;
     
-    return tree;
+    
+    //들어온 문자가 어떤 뜻을 가지는지 모른다고 상정하는 경우
+    SyntacticTree defaultCaseTree = *this;
+    defaultCaseTree.toBeDetermined += character;
+    defaultCaseTree.setValid();
+    candidates.push_back(defaultCaseTree);
+    
+    
+    //들어온 문자가 특정한 역할을 하는 경우
+    if(character == "는")
+    {
+        
+    }
+    
+   
+    
+    
+    
+    
+    
+    
+    return candidates;
+}
+
+void SyntacticTree::setValid()
+{
+    validity = true;
+}
+bool SyntacticTree::isValid()
+{
+    return validity;
 }

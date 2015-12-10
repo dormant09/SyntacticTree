@@ -19,7 +19,7 @@ void SyntacticTreeGenerator::generateTrees(std::string str)
     std::vector<SyntacticTree> oTrees;
     std::vector<SyntacticTree> nTrees;
     
-    std::vector<SyntacticTree>::iterator tIter;
+    std::vector<SyntacticTree>::iterator tIter, candidate;
     
     std::string character;
     
@@ -43,7 +43,13 @@ void SyntacticTreeGenerator::generateTrees(std::string str)
             
             for(tIter = oTrees.begin(); tIter != oTrees.end(); tIter++)
             {
-                nTrees.push_back( tIter->add(character) );
+                std::vector<SyntacticTree> candidates = tIter->add(character);
+                
+                for(candidate = candidates.begin(); candidate != candidates.end(); candidate++)
+                {
+                    if(candidate->isValid()) nTrees.push_back(*candidate);
+                }
+                
             }
             
             
