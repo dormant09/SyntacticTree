@@ -74,10 +74,10 @@
 				CA636DB51C19940400A56141 /* SyntacticTreeGenerator.hpp */,
 				CA636DB71C1994B100A56141 /* SyntacticTree.cpp */,
 				CA636DB81C1994B100A56141 /* SyntacticTree.hpp */,
-				CA636DCC1C19D14500A56141 /* Decoder.cpp */,
-				CA636DCD1C19D14500A56141 /* Decoder.hpp */,
 				CA636DCE1C19D14500A56141 /* SyntacticNode.cpp */,
 				CA636DCF1C19D14500A56141 /* SyntacticNode.hpp */,
+				CA636DCC1C19D14500A56141 /* Decoder.cpp */,
+				CA636DCD1C19D14500A56141 /* Decoder.hpp */,
 			);
 			path = SyntacticTree;
 			sourceTree = "<group>";

@@ -93,14 +93,13 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::add(SyntacticTree tree, std::
         {
             SyntacticTree caseP = tree;
             Noun* n = new Noun(caseP.toBeDetermined);
-            Case* c = new Case(character);
+            Case* c = new Case(character, Case::TBD);
             
             caseP.project(n);
             caseP.project(c);
             candidates.push_back(caseP);
         }
     }
-    
     
     
     return candidates;

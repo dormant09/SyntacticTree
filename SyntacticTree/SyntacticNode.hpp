@@ -33,14 +33,32 @@ class XBar
     public :
     
     XBar();
-    XBar(Head* head);
+   
+    virtual Head* getHead() = 0;
+    
+};
+class RecXBar : public XBar
+{
+    public :
+    
+    RecXBar();
+    RecXBar(XBar* xbar) : xbarChild(xbar) {};
     
     XBar* xbarChild;
     Phrase* adjunct;
     
+    Head* getHead();
+    
+};
+class LastXBar : public XBar
+{
+    public :
+    
+    LastXBar();
+    LastXBar(Head* head) : headChild(head) {};
+    
     Head* headChild;
     Phrase* complement;
-    
     
     Head* getHead();
     
@@ -70,10 +88,51 @@ class Case : public Head
 {
     public :
     
+    enum Type
+    {
+        SUBJECTIVE, OBJECTIVE, TBD
+    };
+    
+    
     Case();
     Case(std::string str) : Head(str) {};
+    Case(std::string str, Type c) : Head(str), grammaticalCase(c) {};
     
     int a() {return 2;};
+    
+    
+    
+    Type grammaticalCase;
+    
+};
+class Tense : public Head
+{
+    public :
+    
+    Tense();
+    Tense(std::string str) : Head(str) {};
+    
+    int a() {return 1;};
+    
+};
+class Verb : public Head
+{
+    public :
+    
+    Verb();
+    Verb(std::string str) : Head(str) {};
+    
+    int a() {return 1;};
+    
+};
+class Complementizer : public Head
+{
+    public :
+    
+    Complementizer();
+    Complementizer(std::string str) : Head(str) {};
+    
+    int a() {return 1;};
     
 };
 

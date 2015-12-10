@@ -19,33 +19,16 @@ Head* Phrase::getHead()
     return xbarChild->getHead();
 }
 
-XBar::XBar(Head* head)
+XBar::XBar()
 {
-    this->xbarChild = NULL;
-    this->adjunct = NULL;
-    
-    this->headChild = head;
-    this->complement = NULL;
     
 }
 
-Head* XBar::getHead()
+Head* RecXBar::getHead()
 {
-    if(xbarChild == NULL)
-    {
-        return headChild;
-    }
-    else
-    {
-        return xbarChild->getHead();
-    }
+    return xbarChild->getHead();
 }
-
-/*
-Head::Head(std::string str, PartOfSpeech::Type pos)
+Head* LastXBar::getHead()
 {
-    this->str = str;
-    this->pos = pos;
+    return headChild;
 }
-
-*/

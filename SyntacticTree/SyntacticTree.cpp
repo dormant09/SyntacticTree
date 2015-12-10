@@ -19,7 +19,7 @@ void SyntacticTree::project(Head* head)
     
     if(phraseStack.empty())
     {
-        XBar* xbar = new XBar(head);
+        XBar* xbar = new LastXBar(head);
         Phrase* phrase = new Phrase(xbar);
         phraseStack.push_back(phrase);
     }
@@ -30,7 +30,7 @@ void SyntacticTree::project(Head* head)
         
         headStack.push_back(head);
         
-        XBar* xbar = new XBar(head);
+        LastXBar* xbar = new LastXBar(head);
         xbarStack.push_back(xbar);
         headStack.pop_back();
         if(typeid(*head) == typeid(Case) && typeid(*lastPhraseHead) == typeid(Noun))
