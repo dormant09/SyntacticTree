@@ -13,6 +13,18 @@ SyntacticTree::SyntacticTree()
 {
 }
 
+bool SyntacticTree::possibilityOfComplement(Head* head, XBar* xbar, Head* lastPhraseHead)
+{
+    if(typeid(*head) == typeid(Case) && typeid(*lastPhraseHead) == typeid(Noun)) return true;
+    if(typeid(*head) == typeid(Tense) && typeid(*lastPhraseHead) == typeid(Verb)) return true;
+    if(typeid(*head) == typeid(Complementizer) && typeid(*lastPhraseHead) == typeid(Tense)) return true;
+    if(typeid(*head) == typeid(Verb) && typeid(*lastPhraseHead) == typeid(Case))
+    {
+        Case* lastCase = dynamic_cast<Case*>(lastPhraseHead);
+        if(lastCase->grammaticalCase == Case::OBJECTIVE || lastCase->grammaticalCase == Case::TBD) return true;
+    }
+    return false;
+}
 
 void SyntacticTree::project(Head* head)
 {
@@ -31,26 +43,7 @@ void SyntacticTree::project(Head* head)
         
         //XBar Projection
         LastXBar* xbar = new LastXBar(head);
-        if(typeid(*head) == typeid(Case) && typeid(*lastPhraseHead) == typeid(Noun))
-        {
-            xbar->complement = phraseStack.back();
-            phraseStack.pop_back();
-        }
-        else if(typeid(*head) == typeid(Verb) && typeid(*lastPhraseHead) == typeid(Case))
-        {
-            Case* lastCase = dynamic_cast<Case*>(lastPhraseHead);
-            if(lastCase->grammaticalCase == Case::OBJECTIVE || lastCase->grammaticalCase == Case::TBD)
-            {
-                xbar->complement = phraseStack.back();
-                phraseStack.pop_back();
-            }
-        }
-        else if(typeid(*head) == typeid(Tense) && typeid(*lastPhraseHead) == typeid(Verb))
-        {
-            xbar->complement = phraseStack.back();
-            phraseStack.pop_back();
-        }
-        else if(typeid(*head) == typeid(Complementizer) && typeid(*lastPhraseHead) == typeid(Tense))
+        if(possibilityOfComplement(head, xbar, lastPhraseHead))
         {
             xbar->complement = phraseStack.back();
             phraseStack.pop_back();

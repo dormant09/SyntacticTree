@@ -33,7 +33,7 @@ class SyntacticTree
     
     private :
     
-    
+    bool possibilityOfComplement(Head* head, XBar* xbar, Head* lastPhraseHead);
     
 };
 
