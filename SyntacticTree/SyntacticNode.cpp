@@ -8,12 +8,7 @@
 
 #include "SyntacticNode.hpp"
 
-Phrase::Phrase(XBar* xbar)
-{
-    this->xbarChild = xbar;
-    this->spec = NULL;
-    
-}
+
 Head* Phrase::getHead()
 {
     return xbarChild->getHead();

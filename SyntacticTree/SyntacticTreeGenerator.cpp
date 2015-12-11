@@ -14,7 +14,7 @@ SyntacticTreeGenerator::SyntacticTreeGenerator()
 }
 
 
-void SyntacticTreeGenerator::generateTrees(std::string str)
+std::vector<SyntacticTree> SyntacticTreeGenerator::generateTrees(std::string str)
 {
     std::vector<SyntacticTree> oTrees;
     std::vector<SyntacticTree> nTrees;
@@ -72,7 +72,7 @@ void SyntacticTreeGenerator::generateTrees(std::string str)
                 while(!oTrees.empty())
                 {
                     //띄어쓰기 단위로는 품사가 결정되어 있어야 한다. 정문이 품사가 결정되지 않은 경우 규칙을 추가하거나 바꿀 것.
-                    if(oTrees.back().toBeDetermined == "")
+                    if(oTrees.back().toBeDetermined.empty())
                     {
                         nTrees.push_back(oTrees.back());
                     }
@@ -91,6 +91,24 @@ void SyntacticTreeGenerator::generateTrees(std::string str)
         
         
     }
+    
+    std::vector<SyntacticTree> trees;
+    
+    for(tIter = oTrees.begin(); tIter != oTrees.end(); tIter++)
+    {
+        if(tIter->toBeDetermined.empty())
+        {
+            if( tIter->phraseStack.size() == 1 && tIter->xbarStack.empty() && tIter->headStack.empty())
+            {
+                trees.push_back(*tIter);
+            }
+        }
+    }
+    
+    return trees;
+    
+    
+    
 }
 
 //Private functions
@@ -115,6 +133,10 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
         {
             candidates.push_back(projectCasePhrase(tree, character, Case::TBD));
         }
+        if( tree.toBeDetermined != "")
+        {
+            candidates.push_back(projectTensePhrase(tree, character));
+        }
     }
     else if(character == "는")
     {
@@ -122,6 +144,10 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
         if( ! Decoder::endsWithCoda(tree.toBeDetermined) )
         {
             candidates.push_back(projectCasePhrase(tree, character, Case::TBD));
+        }
+        if( tree.toBeDetermined != "")
+        {
+            candidates.push_back(projectTensePhrase(tree, character));
         }
     }
     else if(character == "이")
@@ -144,6 +170,10 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
         {
             candidates.push_back(projectCasePhrase(tree, character, Case::OBJECTIVE));
         }
+        if( tree.toBeDetermined != "")
+        {
+            candidates.push_back(projectTensePhrase(tree, character));
+        }
     }
     else if(character == "를")
     {
@@ -152,7 +182,15 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
             candidates.push_back(projectCasePhrase(tree, character, Case::OBJECTIVE));
         }
     }
-    
+    else if(character == "다")
+    {
+        Head* head = tree.phraseStack.back()->getHead();
+        if(typeid(*head) == typeid(Tense))
+        {
+            candidates.push_back(projectComplementizerPhrase(tree, character));
+        }
+        
+    }
     return candidates;
 }
 
@@ -167,7 +205,27 @@ SyntacticTree SyntacticTreeGenerator::projectCasePhrase(SyntacticTree tree, std:
     
     return caseTree;
 }
-
+SyntacticTree SyntacticTreeGenerator::projectTensePhrase(SyntacticTree tree, std::string character)
+{
+    SyntacticTree tenseTree = tree;
+    Verb* v = new Verb(tenseTree.toBeDetermined);
+    Tense* t = new Tense(character);
+    
+    tenseTree.project(v);
+    tenseTree.project(t);
+    
+    return tenseTree;
+}
+SyntacticTree SyntacticTreeGenerator::projectComplementizerPhrase(SyntacticTree tree, std::string character)
+{
+    SyntacticTree compTree = tree;
+    Complementizer* c = new Complementizer(character);
+    
+    compTree.project(c);
+    
+    return compTree;
+    
+}
 bool SyntacticTreeGenerator::isHangeul(char initial)
 {
     //이진코드가 1110으로 시작하는지 확인

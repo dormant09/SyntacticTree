@@ -20,7 +20,7 @@ class Phrase
     public :
     
     Phrase();
-    Phrase(XBar* xbar);
+    Phrase(XBar* xbar) : xbarChild(xbar), spec(NULL) {};
     
     XBar* xbarChild;
     Phrase* spec;
@@ -42,7 +42,7 @@ class RecXBar : public XBar
     public :
     
     RecXBar();
-    RecXBar(XBar* xbar) : xbarChild(xbar) {};
+    RecXBar(XBar* xbar) : xbarChild(xbar), adjunct(NULL) {};
     
     XBar* xbarChild;
     Phrase* adjunct;
@@ -55,7 +55,7 @@ class LastXBar : public XBar
     public :
     
     LastXBar();
-    LastXBar(Head* head) : headChild(head) {};
+    LastXBar(Head* head) : headChild(head), complement(NULL) {};
     
     Head* headChild;
     Phrase* complement;

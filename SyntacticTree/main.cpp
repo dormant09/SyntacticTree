@@ -13,8 +13,8 @@ int main(int argc, const char * argv[])
 {
     static SyntacticTreeGenerator *stg = new SyntacticTreeGenerator();
     
-    
-    stg->generateTrees("나는 밥을 먹는다");
+    std::vector<SyntacticTree> trees;
+    trees = stg->generateTrees("나는 밥을 먹는다");
     
     
     return 0;
