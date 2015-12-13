@@ -29,6 +29,7 @@ class SyntacticTree
     
     
     void project(Head *head);
+    std::string getTaggedString();
     
     
     private :

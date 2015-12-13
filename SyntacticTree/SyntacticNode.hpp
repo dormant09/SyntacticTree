@@ -10,12 +10,25 @@
 #define SyntacticNode_hpp
 
 #include <string> 
+#include <typeinfo>
 
 class Phrase;
 class XBar;
 class Head;
 
-class Phrase
+class SyntacticNode
+{
+    public :
+    
+    SyntacticNode();
+    
+    virtual std::string getTaggedString() = 0;
+    virtual Head* getHead() = 0;
+    
+    static std::string getCode(Head *h);
+};
+
+class Phrase : public SyntacticNode
 {
     public :
     
@@ -26,15 +39,19 @@ class Phrase
     Phrase* spec;
     
     Head* getHead();
+
+    std::string getTaggedString();
     
 };
-class XBar
+class XBar : public SyntacticNode
 {
     public :
     
     XBar();
    
-    virtual Head* getHead() = 0;
+    //virtual Head* getHead() = 0;
+    
+    
     
 };
 class RecXBar : public XBar
@@ -49,6 +66,8 @@ class RecXBar : public XBar
     
     Head* getHead();
     
+    std::string getTaggedString();
+    
 };
 class LastXBar : public XBar
 {
@@ -62,15 +81,19 @@ class LastXBar : public XBar
     
     Head* getHead();
     
+    std::string getTaggedString();
+    
 };
-class Head
+class Head : public SyntacticNode
 {
     public :
     
     Head();
     Head(std::string str) : str(str) {};
     
-    virtual int a() = 0;
+    
+    Head* getHead();
+    std::string getTaggedString();
     
     std::string str;
 };
@@ -80,8 +103,6 @@ class Noun : public Head
     
     Noun();
     Noun(std::string str) : Head(str) {};
-    
-    int a() {return 1;};
     
 };
 class Case : public Head
@@ -98,8 +119,6 @@ class Case : public Head
     Case(std::string str) : Head(str) {};
     Case(std::string str, Type c) : Head(str), grammaticalCase(c) {};
     
-    int a() {return 2;};
-    
     
     
     Type grammaticalCase;
@@ -109,10 +128,10 @@ class Tense : public Head
 {
     public :
     
+    
     Tense();
     Tense(std::string str) : Head(str) {};
     
-    int a() {return 1;};
     
 };
 class Verb : public Head
@@ -122,8 +141,6 @@ class Verb : public Head
     Verb();
     Verb(std::string str) : Head(str) {};
     
-    int a() {return 1;};
-    
 };
 class Complementizer : public Head
 {
@@ -132,7 +149,6 @@ class Complementizer : public Head
     Complementizer();
     Complementizer(std::string str) : Head(str) {};
     
-    int a() {return 1;};
     
 };
 

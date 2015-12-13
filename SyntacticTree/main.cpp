@@ -16,6 +16,11 @@ int main(int argc, const char * argv[])
     std::vector<SyntacticTree> trees;
     trees = stg->generateTrees("나는 밥을 먹는다");
     
+    for(std::vector<SyntacticTree>::iterator tIter = trees.begin(); tIter != trees.end(); tIter++)
+    {
+        std::string taggedSyntax = tIter->getTaggedString();
+        std::cout << taggedSyntax << std::endl;
+    }
     
     return 0;
 }

@@ -79,3 +79,8 @@ void SyntacticTree::project(Head* head)
     toBeDetermined = "";
     
 }
+std::string SyntacticTree::getTaggedString()
+{
+    if(phraseStack.size() != 1) return "";
+    else return phraseStack.back()->getTaggedString();
+}
