@@ -135,7 +135,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
         }
         if( tree.toBeDetermined != "")
         {
-            candidates.push_back(projectTensePhrase(tree, character));
+            candidates.push_back(projectTensePhrase(tree, character, Tense::PRESENT));
         }
     }
     else if(character == "는")
@@ -147,7 +147,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
         }
         if( tree.toBeDetermined != "")
         {
-            candidates.push_back(projectTensePhrase(tree, character));
+            candidates.push_back(projectTensePhrase(tree, character, Tense::PRESENT));
         }
     }
     else if(character == "이")
@@ -172,7 +172,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
         }
         if( tree.toBeDetermined != "")
         {
-            candidates.push_back(projectTensePhrase(tree, character));
+            candidates.push_back(projectTensePhrase(tree, character, Tense::FUTURE));
         }
     }
     else if(character == "를")
@@ -191,6 +191,14 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
         }
         
     }
+    else if(character == "었" || character == "았")
+    {
+        if( tree.toBeDetermined != "")
+        {
+            candidates.push_back(projectTensePhrase(tree, character, Tense::PAST));
+        }
+        
+    }
     return candidates;
 }
 
@@ -205,11 +213,11 @@ SyntacticTree SyntacticTreeGenerator::projectCasePhrase(SyntacticTree tree, std:
     
     return caseTree;
 }
-SyntacticTree SyntacticTreeGenerator::projectTensePhrase(SyntacticTree tree, std::string character)
+SyntacticTree SyntacticTreeGenerator::projectTensePhrase(SyntacticTree tree, std::string character, Tense::Type tense)
 {
     SyntacticTree tenseTree = tree;
     Verb* v = new Verb(tenseTree.toBeDetermined);
-    Tense* t = new Tense(character);
+    Tense* t = new Tense(character, tense);
     
     tenseTree.project(v);
     tenseTree.project(t);

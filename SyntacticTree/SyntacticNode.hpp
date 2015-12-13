@@ -48,10 +48,6 @@ class XBar : public SyntacticNode
     public :
     
     XBar();
-   
-    //virtual Head* getHead() = 0;
-    
-    
     
 };
 class RecXBar : public XBar
@@ -128,11 +124,16 @@ class Tense : public Head
 {
     public :
     
+    enum Type
+    {
+        PAST, PRESENT, FUTURE
+    };
     
     Tense();
     Tense(std::string str) : Head(str) {};
+    Tense(std::string str, Type t) : Head(str), tense(t) {};
     
-    
+    Type tense;
 };
 class Verb : public Head
 {

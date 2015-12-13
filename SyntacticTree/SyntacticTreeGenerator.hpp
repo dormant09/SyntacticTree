@@ -33,7 +33,7 @@ class SyntacticTreeGenerator
     static std::vector<SyntacticTree> addCharacterToTree(SyntacticTree tree, std::string character);
     
     static SyntacticTree projectCasePhrase(SyntacticTree tree, std::string character, Case::Type grammaticalCase);
-    static SyntacticTree projectTensePhrase(SyntacticTree tree, std::string character);
+    static SyntacticTree projectTensePhrase(SyntacticTree tree, std::string character, Tense::Type tense);
     static SyntacticTree projectComplementizerPhrase(SyntacticTree tree, std::string character);
     
 };

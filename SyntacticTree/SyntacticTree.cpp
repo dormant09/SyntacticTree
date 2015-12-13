@@ -17,7 +17,11 @@ bool SyntacticTree::possibilityOfComplement(Head* head, XBar* xbar, Head* lastPh
 {
     if(typeid(*head) == typeid(Case) && typeid(*lastPhraseHead) == typeid(Noun)) return true;
     if(typeid(*head) == typeid(Tense) && typeid(*lastPhraseHead) == typeid(Verb)) return true;
-    if(typeid(*head) == typeid(Complementizer) && typeid(*lastPhraseHead) == typeid(Tense)) return true;
+    if(typeid(*head) == typeid(Complementizer) && typeid(*lastPhraseHead) == typeid(Tense))
+    {
+        Tense* lastTense = dynamic_cast<Tense*>(lastPhraseHead);
+        if(lastTense->tense != Tense::FUTURE) return true;
+    }
     if(typeid(*head) == typeid(Verb) && typeid(*lastPhraseHead) == typeid(Case))
     {
         Case* lastCase = dynamic_cast<Case*>(lastPhraseHead);
