@@ -128,11 +128,16 @@ class Tense : public Head
 {
     public :
     
+    enum Type
+    {
+        PAST, PRESENT, FUTURE
+    };
     
     Tense();
     Tense(std::string str) : Head(str) {};
+    Tense(std::string str, Type t) : Head(str), tense(t) {};
     
-    
+    Type tense;
 };
 class Verb : public Head
 {
