@@ -199,9 +199,24 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
         }
         
     }
+    else if(character == "에")
+    {
+        candidates.push_back(projectPostpositionPhrase(tree, character));
+    }
     return candidates;
 }
-
+SyntacticTree SyntacticTreeGenerator::projectPostpositionPhrase(SyntacticTree tree, std::string character)
+{
+    SyntacticTree ppTree = tree;
+    Noun* n = new Noun(ppTree.toBeDetermined);
+    Postposition* p = new Postposition(character);
+    
+    ppTree.project(n);
+    ppTree.project(p);
+    
+    return ppTree;
+    
+}
 SyntacticTree SyntacticTreeGenerator::projectCasePhrase(SyntacticTree tree, std::string character, Case::Type grammaticalCase)
 {
     SyntacticTree caseTree = tree;

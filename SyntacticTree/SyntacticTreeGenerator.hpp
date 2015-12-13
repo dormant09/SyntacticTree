@@ -35,6 +35,7 @@ class SyntacticTreeGenerator
     static SyntacticTree projectCasePhrase(SyntacticTree tree, std::string character, Case::Type grammaticalCase);
     static SyntacticTree projectTensePhrase(SyntacticTree tree, std::string character, Tense::Type tense);
     static SyntacticTree projectComplementizerPhrase(SyntacticTree tree, std::string character);
+    static SyntacticTree projectPostpositionPhrase(SyntacticTree tree, std::string character);
     
 };
 #endif /* SyntacticTreeGenerator_hpp */

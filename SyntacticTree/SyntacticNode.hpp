@@ -153,4 +153,12 @@ class Complementizer : public Head
     
 };
 
+class Postposition : public Head
+{
+    public :
+    
+    Postposition();
+    Postposition(std::string str) : Head(str) {};
+};
+
 #endif /* SyntacticNode_hpp */
