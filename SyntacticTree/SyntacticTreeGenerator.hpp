@@ -13,6 +13,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <map>
 #include "SyntacticTree.hpp"
 
 class SyntacticTreeGenerator
@@ -30,7 +31,7 @@ class SyntacticTreeGenerator
     private :
     
     
-    std::vector<Case> caseLexicon;
+    std::map<std::string, Case> caseLexicon;
     
     void formLexicon();
     

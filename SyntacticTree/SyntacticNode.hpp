@@ -91,6 +91,8 @@ class Head : public SyntacticNode
     Head* getHead();
     std::string getTaggedString();
     
+    bool operator < (const Head& h) const;
+    
     std::string str;
 };
 class Noun : public Head

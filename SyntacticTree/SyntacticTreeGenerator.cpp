@@ -17,7 +17,6 @@ SyntacticTreeGenerator::SyntacticTreeGenerator()
 void SyntacticTreeGenerator::formLexicon()
 {
     
-    
     std::ifstream fin("case.lexicon");
     if(fin.fail())
     {
@@ -34,10 +33,23 @@ void SyntacticTreeGenerator::formLexicon()
             fin >> str >> grammaticalCase;
             
         
-            if(grammaticalCase == "TOPIC") caseLexicon.push_back(Case(str, Case::TBD));
-            else if(grammaticalCase == "SUBJECTIVE") caseLexicon.push_back(Case(str, Case::SUBJECTIVE));
-            else if(grammaticalCase == "OBJECTIVE") caseLexicon.push_back(Case(str, Case::OBJECTIVE));
+            if(grammaticalCase == "TOPIC")
+            {
+                caseLexicon.insert(std::map<std::string, Case>::value_type(str, Case(str, Case::TBD)));
+            }
+            else if(grammaticalCase == "SUBJECTIVE")
+            {
+                caseLexicon.insert(std::map<std::string, Case>::value_type(str, Case(str, Case::SUBJECTIVE)));
+            }
+            else if(grammaticalCase == "OBJECTIVE")
+            {
+                caseLexicon.insert(std::map<std::string, Case>::value_type(str, Case(str, Case::OBJECTIVE)));
+            }
+         
         }
+       
+        
+              
     }
 }
 
@@ -157,32 +169,26 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
     
     
     //들어온 문자가 특정한 역할을 하는 경우
-    for(std::vector<Case>::iterator cIter = caseLexicon.begin(); cIter != caseLexicon.end(); cIter++)
+    
+    
+    //Case
+    for(int i = 3; i <= tbd.length(); i += 3)
     {
-        size_t length = cIter->str.length();
+        std::string substring = tbd.substr(tbd.length() - i, i);
+        std::map<std::string, Case>::iterator cIter = caseLexicon.find(substring);
         
-        if(tbd.length() >= length)
+        if(cIter != caseLexicon.end())
         {
-            std::string left = tbd.substr(0, tbd.length() - length);
-            std::string right = tbd.substr(tbd.length() - length, length);
-            
-            if(right == cIter->str)
-            {
-                candidates.push_back(projectCasePhrase(tree, right, cIter->grammaticalCase));
-            }
+            candidates.push_back(projectCasePhrase(tree, substring, cIter->second.grammaticalCase));
+
         }
-        
     }
     
     
     
     if(character == "은")
     {
-        //앞 단어가 받침이 없을 때만
-        if( Decoder::endsWithCoda(tree.toBeDetermined) )
-        {
-            //candidates.push_back(projectCasePhrase(tree, character, Case::TBD));
-        }
+      
         if( tree.toBeDetermined != "")
         {
             candidates.push_back(projectTensePhrase(tree, character, Tense::PRESENT));
@@ -190,48 +196,21 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
     }
     else if(character == "는")
     {
-        //앞 단어가 받침이 있을 때만
-        if( ! Decoder::endsWithCoda(tree.toBeDetermined) )
-        {
-            //candidates.push_back(projectCasePhrase(tree, character, Case::TBD));
-        }
+        
         if( tree.toBeDetermined != "")
         {
             candidates.push_back(projectTensePhrase(tree, character, Tense::PRESENT));
         }
     }
-    else if(character == "이")
-    {
-        if( Decoder::endsWithCoda(tree.toBeDetermined) )
-        {
-            //candidates.push_back(projectCasePhrase(tree, character, Case::SUBJECTIVE));
-        }
-    }
-    else if(character == "가")
-    {
-        if( ! Decoder::endsWithCoda(tree.toBeDetermined) )
-        {
-            //candidates.push_back(projectCasePhrase(tree, character, Case::SUBJECTIVE));
-        }
-    }
     else if(character == "을")
     {
-        if( Decoder::endsWithCoda(tree.toBeDetermined) )
-        {
-            //candidates.push_back(projectCasePhrase(tree, character, Case::OBJECTIVE));
-        }
+        
         if( tree.toBeDetermined != "")
         {
             candidates.push_back(projectTensePhrase(tree, character, Tense::FUTURE));
         }
     }
-    else if(character == "를")
-    {
-        if( ! Decoder::endsWithCoda(tree.toBeDetermined) )
-        {
-            //candidates.push_back(projectCasePhrase(tree, character, Case::OBJECTIVE));
-        }
-    }
+
     else if(character == "다")
     {
         Head* head = tree.phraseStack.back()->getHead();

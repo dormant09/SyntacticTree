@@ -87,6 +87,10 @@ Head* Head::getHead()
 {
     return this;
 }
+bool Head::operator < (const Head& h) const
+{
+    return (str.compare(h.str) < 0);
+}
 
 std::string Head::getTaggedString()
 {
