@@ -11,7 +11,6 @@
 
 SyntacticTreeGenerator::SyntacticTreeGenerator()
 {
-    formLexicon();
 }
 
 std::vector<SyntacticTree> SyntacticTreeGenerator::generateTrees(std::string str)
@@ -136,9 +135,9 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
     for(int i = 3; i <= tbd.length(); i += 3)
     {
         std::string substring = tbd.substr(tbd.length() - i, i);
-        std::map<std::string, Postposition>::iterator pIter = postpositionLexicon.find(substring);
+        std::map<std::string, Postposition>::iterator pIter = lexicon.postpositions.find(substring);
         
-        if(pIter != postpositionLexicon.end())
+        if(pIter != lexicon.postpositions.end())
         {
             candidates.push_back(projectPostpositionPhrase(tree, substring, pIter->second.grammaticalCase));
 
@@ -197,10 +196,6 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
         
     }
     
-    else if(character == "에")
-    {
-        candidates.push_back(projectPostpositionPhrase(tree, character));
-    }
     return candidates;
 }
 SyntacticTree SyntacticTreeGenerator::projectPostpositionPhrase(SyntacticTree tree, std::string character)
@@ -246,43 +241,4 @@ SyntacticTree SyntacticTreeGenerator::projectComplementizerPhrase(SyntacticTree 
     
     return compTree;
     
-}
-
-void SyntacticTreeGenerator::formLexicon()
-{
-    
-    std::ifstream fin("postposition.lexicon");
-    if(fin.fail())
-    {
-        std::cerr << std::strerror(errno);
-    }
-    else
-    {
-        std::string input;
-        std::string str;
-        std::string grammaticalCase;
-        
-        while(!fin.eof())
-        {
-            fin >> str >> grammaticalCase;
-            
-            
-            if(grammaticalCase == "TOPIC")
-            {
-                postpositionLexicon.insert(std::map<std::string, Postposition>::value_type(str, Postposition(str, Case::TBD)));
-            }
-            else if(grammaticalCase == "SUBJECTIVE")
-            {
-                postpositionLexicon.insert(std::map<std::string, Postposition>::value_type(str, Postposition(str, Case::SUBJECTIVE)));
-            }
-            else if(grammaticalCase == "OBJECTIVE")
-            {
-                postpositionLexicon.insert(std::map<std::string, Postposition>::value_type(str, Postposition(str, Case::OBJECTIVE)));
-            }
-            
-        }
-        
-        
-        
-    }
 }

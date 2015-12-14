@@ -10,11 +10,11 @@
 #define SyntacticTreeGenerator_hpp
 
 #include <string>
-#include <fstream>
 #include <iostream>
 #include <vector>
-#include <map>
+
 #include "SyntacticTree.hpp"
+#include "Lexicon.hpp"
 
 class SyntacticTreeGenerator
 {
@@ -31,9 +31,8 @@ class SyntacticTreeGenerator
     private :
     
     
-    std::map<std::string, Postposition> postpositionLexicon;
+    Lexicon lexicon;
     
-    void formLexicon();
     
     std::vector<SyntacticTree> addCharacterToTree(SyntacticTree tree, std::string character);
     
