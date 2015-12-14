@@ -14,45 +14,6 @@ SyntacticTreeGenerator::SyntacticTreeGenerator()
     formLexicon();
 }
 
-void SyntacticTreeGenerator::formLexicon()
-{
-    
-    std::ifstream fin("case.lexicon");
-    if(fin.fail())
-    {
-        std::cerr << std::strerror(errno);
-    }
-    else
-    {
-        std::string input;
-        std::string str;
-        std::string grammaticalCase;
-        
-        while(!fin.eof())
-        {
-            fin >> str >> grammaticalCase;
-            
-        
-            if(grammaticalCase == "TOPIC")
-            {
-                caseLexicon.insert(std::map<std::string, Case>::value_type(str, Case(str, Case::TBD)));
-            }
-            else if(grammaticalCase == "SUBJECTIVE")
-            {
-                caseLexicon.insert(std::map<std::string, Case>::value_type(str, Case(str, Case::SUBJECTIVE)));
-            }
-            else if(grammaticalCase == "OBJECTIVE")
-            {
-                caseLexicon.insert(std::map<std::string, Case>::value_type(str, Case(str, Case::OBJECTIVE)));
-            }
-         
-        }
-       
-        
-              
-    }
-}
-
 std::vector<SyntacticTree> SyntacticTreeGenerator::generateTrees(std::string str)
 {
     std::vector<SyntacticTree> oTrees;
@@ -175,43 +136,58 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
     for(int i = 3; i <= tbd.length(); i += 3)
     {
         std::string substring = tbd.substr(tbd.length() - i, i);
-        std::map<std::string, Case>::iterator cIter = caseLexicon.find(substring);
+        std::map<std::string, Postposition>::iterator pIter = postpositionLexicon.find(substring);
         
-        if(cIter != caseLexicon.end())
+        if(pIter != postpositionLexicon.end())
         {
-            candidates.push_back(projectCasePhrase(tree, substring, cIter->second.grammaticalCase));
+            candidates.push_back(projectPostpositionPhrase(tree, substring, pIter->second.grammaticalCase));
 
         }
     }
     
-    
-    
-    if(character == "은")
+    //Tense
+    std::string coda = Decoder::getCoda(character);
+    if(coda == "ㄴ")
     {
-      
-        if( tree.toBeDetermined != "")
+        if(character == "은" || character == "는")
         {
             candidates.push_back(projectTensePhrase(tree, character, Tense::PRESENT));
         }
-    }
-    else if(character == "는")
-    {
-        
-        if( tree.toBeDetermined != "")
+        else
         {
-            candidates.push_back(projectTensePhrase(tree, character, Tense::PRESENT));
+            SyntacticTree copyTree = tree;
+            copyTree.toBeDetermined += Decoder::deleteCoda(character);
+            candidates.push_back(projectTensePhrase(copyTree, coda, Tense::PRESENT));
         }
     }
-    else if(character == "을")
+    else if(coda == "ㄹ")
     {
-        
-        if( tree.toBeDetermined != "")
+        if(character == "을")
         {
             candidates.push_back(projectTensePhrase(tree, character, Tense::FUTURE));
         }
+        else
+        {
+            SyntacticTree copyTree = tree;
+            copyTree.toBeDetermined += Decoder::deleteCoda(character);
+            candidates.push_back(projectTensePhrase(copyTree, coda, Tense::FUTURE));
+        }
     }
-
-    else if(character == "다")
+    else if(coda == "ㅆ")
+    {
+        if(character == "었" || character == "았")
+        {
+            candidates.push_back(projectTensePhrase(tree, character, Tense::PAST));
+        }
+        else
+        {
+            SyntacticTree copyTree = tree;
+            copyTree.toBeDetermined += Decoder::deleteCoda(character);
+            candidates.push_back(projectTensePhrase(copyTree, coda, Tense::PAST));
+        }
+    }
+    
+    if(character == "다")
     {
         Head* head = tree.phraseStack.back()->getHead();
         if(typeid(*head) == typeid(Tense))
@@ -220,14 +196,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
         }
         
     }
-    else if(character == "었" || character == "았")
-    {
-        if( tree.toBeDetermined != "")
-        {
-            candidates.push_back(projectTensePhrase(tree, character, Tense::PAST));
-        }
-        
-    }
+    
     else if(character == "에")
     {
         candidates.push_back(projectPostpositionPhrase(tree, character));
@@ -246,16 +215,16 @@ SyntacticTree SyntacticTreeGenerator::projectPostpositionPhrase(SyntacticTree tr
     return ppTree;
     
 }
-SyntacticTree SyntacticTreeGenerator::projectCasePhrase(SyntacticTree tree, std::string character, Case::Type grammaticalCase)
+SyntacticTree SyntacticTreeGenerator::projectPostpositionPhrase(SyntacticTree tree, std::string character, Case::Type grammaticalCase)
 {
-    SyntacticTree caseTree = tree;
-    Noun* n = new Noun(caseTree.toBeDetermined);
-    Case* c = new Case(character, grammaticalCase);
+    SyntacticTree ppTree = tree;
+    Noun* n = new Noun(ppTree.toBeDetermined);
+    Postposition* c = new Postposition(character, grammaticalCase);
     
-    caseTree.project(n);
-    caseTree.project(c);
+    ppTree.project(n);
+    ppTree.project(c);
     
-    return caseTree;
+    return ppTree;
 }
 SyntacticTree SyntacticTreeGenerator::projectTensePhrase(SyntacticTree tree, std::string character, Tense::Type tense)
 {
@@ -277,4 +246,43 @@ SyntacticTree SyntacticTreeGenerator::projectComplementizerPhrase(SyntacticTree 
     
     return compTree;
     
+}
+
+void SyntacticTreeGenerator::formLexicon()
+{
+    
+    std::ifstream fin("postposition.lexicon");
+    if(fin.fail())
+    {
+        std::cerr << std::strerror(errno);
+    }
+    else
+    {
+        std::string input;
+        std::string str;
+        std::string grammaticalCase;
+        
+        while(!fin.eof())
+        {
+            fin >> str >> grammaticalCase;
+            
+            
+            if(grammaticalCase == "TOPIC")
+            {
+                postpositionLexicon.insert(std::map<std::string, Postposition>::value_type(str, Postposition(str, Case::TBD)));
+            }
+            else if(grammaticalCase == "SUBJECTIVE")
+            {
+                postpositionLexicon.insert(std::map<std::string, Postposition>::value_type(str, Postposition(str, Case::SUBJECTIVE)));
+            }
+            else if(grammaticalCase == "OBJECTIVE")
+            {
+                postpositionLexicon.insert(std::map<std::string, Postposition>::value_type(str, Postposition(str, Case::OBJECTIVE)));
+            }
+            
+        }
+        
+        
+        
+    }
 }

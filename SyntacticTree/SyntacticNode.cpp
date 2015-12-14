@@ -15,7 +15,7 @@ SyntacticNode::SyntacticNode()
 }
 std::string SyntacticNode::getCode(Head *h)
 {
-    if(typeid(*h) == typeid(Case)) return "case";
+    if(typeid(*h) == typeid(Postposition)) return "P";
     else if(typeid(*h) == typeid(Noun)) return "N";
     else if(typeid(*h) == typeid(Verb)) return "V";
     else if(typeid(*h) == typeid(Complementizer)) return "C";

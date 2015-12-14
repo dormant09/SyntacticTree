@@ -103,23 +103,27 @@ class Noun : public Head
     Noun(std::string str) : Head(str) {};
     
 };
-class Case : public Head
+namespace Case
 {
-    public :
-    
     enum Type
     {
         SUBJECTIVE, OBJECTIVE, TBD
     };
+}
+class Postposition : public Head
+{
+    public :
     
     
-    Case();
-    Case(std::string str) : Head(str) {};
-    Case(std::string str, Type c) : Head(str), grammaticalCase(c) {};
+    
+    
+    Postposition();
+    Postposition(std::string str) : Head(str) {};
+    Postposition(std::string str, Case::Type c) : Head(str), grammaticalCase(c) {};
     
     
     
-    Type grammaticalCase;
+    Case::Type grammaticalCase;
     
 };
 class Tense : public Head
@@ -155,12 +159,6 @@ class Complementizer : public Head
     
 };
 
-class Postposition : public Head
-{
-    public :
-    
-    Postposition();
-    Postposition(std::string str) : Head(str) {};
-};
+
 
 #endif /* SyntacticNode_hpp */

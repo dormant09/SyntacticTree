@@ -15,7 +15,7 @@ SyntacticTree::SyntacticTree()
 
 bool SyntacticTree::possibilityOfComplement(Head* head, XBar* xbar, Head* lastPhraseHead)
 {
-    if(typeid(*head) == typeid(Case) && typeid(*lastPhraseHead) == typeid(Noun)) return true;
+    if(typeid(*head) == typeid(Postposition) && typeid(*lastPhraseHead) == typeid(Noun)) return true;
     if(typeid(*head) == typeid(Postposition) && typeid(*lastPhraseHead) == typeid(Noun)) return true;
     if(typeid(*head) == typeid(Tense) && typeid(*lastPhraseHead) == typeid(Verb)) return true;
     if(typeid(*head) == typeid(Complementizer) && typeid(*lastPhraseHead) == typeid(Tense))
@@ -23,10 +23,10 @@ bool SyntacticTree::possibilityOfComplement(Head* head, XBar* xbar, Head* lastPh
         Tense* lastTense = dynamic_cast<Tense*>(lastPhraseHead);
         if(lastTense->tense != Tense::FUTURE) return true;
     }
-    if(typeid(*head) == typeid(Verb) && typeid(*lastPhraseHead) == typeid(Case))
+    if(typeid(*head) == typeid(Verb) && typeid(*lastPhraseHead) == typeid(Postposition))
     {
-        Case* lastCase = dynamic_cast<Case*>(lastPhraseHead);
-        if(lastCase->grammaticalCase == Case::OBJECTIVE || lastCase->grammaticalCase == Case::TBD) return true;
+        Postposition* lastPP = dynamic_cast<Postposition*>(lastPhraseHead);
+        if(lastPP->grammaticalCase == Case::OBJECTIVE || lastPP->grammaticalCase == Case::TBD) return true;
     }
     return false;
 }
@@ -63,10 +63,10 @@ void SyntacticTree::project(Head* head)
         {
             lastPhraseHead = phraseStack.back()->getHead();
             
-             if(typeid(*head) == typeid(Tense) && typeid(*lastPhraseHead) == typeid(Case))
+             if(typeid(*head) == typeid(Tense) && typeid(*lastPhraseHead) == typeid(Postposition))
              {
-                 Case* lastCase = dynamic_cast<Case*>(lastPhraseHead);
-                 if(lastCase->grammaticalCase == Case::SUBJECTIVE || lastCase->grammaticalCase == Case::TBD)
+                 Postposition* lastPP = dynamic_cast<Postposition*>(lastPhraseHead);
+                 if(lastPP->grammaticalCase == Case::SUBJECTIVE || lastPP->grammaticalCase == Case::TBD)
                  {
                      phrase->spec = phraseStack.back();
                      phraseStack.pop_back();
