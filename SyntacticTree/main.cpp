@@ -11,6 +11,7 @@
 
 int main(int argc, const char * argv[])
 {
+   
     SyntacticTreeGenerator *stg = new SyntacticTreeGenerator();
     
     std::vector<SyntacticTree> trees;
@@ -21,6 +22,8 @@ int main(int argc, const char * argv[])
         std::string taggedSyntax = tIter->getTaggedString();
         std::cout << taggedSyntax << std::endl;
     }
+    
+     
     
     return 0;
 }
