@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SyntacticTree/SyntacticTreeGenerator.cpp"
-            timestampString = "471773239.493525"
+            timestampString = "471774260.38758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "SyntacticTreeGenerator::addCharacterToTree(SyntacticTree tree, std::string character)"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SyntacticTree/SyntacticTreeGenerator.cpp"
-            timestampString = "471773239.493525"
+            timestampString = "471774033.466311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "SyntacticTreeGenerator::generateTrees(std::string str)"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SyntacticTree/SyntacticTreeGenerator.cpp"
-            timestampString = "471773239.493525"
+            timestampString = "471774033.466311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "SyntacticTreeGenerator::addCharacterToTree(SyntacticTree tree, std::string character)"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SyntacticTree/SyntacticTreeGenerator.cpp"
-            timestampString = "471773239.493525"
+            timestampString = "471774033.466311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "SyntacticTreeGenerator::generateTrees(std::string str)"
             landmarkType = "5">
             <Locations>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SyntacticTree/SyntacticTreeGenerator.cpp"
-            timestampString = "471773239.493525"
+            timestampString = "471774175.57193"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
             landmarkName = "SyntacticTreeGenerator::addCharacterToTree(SyntacticTree tree, std::string character)"
             landmarkType = "5">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SyntacticTree/SyntacticTreeGenerator.cpp"
-            timestampString = "471773239.493525"
+            timestampString = "471774033.466311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "SyntacticTreeGenerator::generateTrees(std::string str)"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SyntacticTree/SyntacticTreeGenerator.cpp"
-            timestampString = "471773239.493525"
+            timestampString = "471774033.466311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "SyntacticTreeGenerator::generateTrees(std::string str)"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SyntacticTree/SyntacticTreeGenerator.cpp"
-            timestampString = "471773239.493525"
+            timestampString = "471774033.466311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "SyntacticTreeGenerator::generateTrees(std::string str)"
             landmarkType = "5">
             <Locations>
@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SyntacticTree/SyntacticTreeGenerator.cpp"
-            timestampString = "471773239.493525"
+            timestampString = "471774033.466311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "SyntacticTreeGenerator::generateTrees(std::string str)"
             landmarkType = "5">
          </BreakpointContent>
@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SyntacticTree/SyntacticTreeGenerator.cpp"
-            timestampString = "471773239.493525"
+            timestampString = "471774033.466311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "SyntacticTreeGenerator::generateTrees(std::string str)"
             landmarkType = "5">
          </BreakpointContent>
@@ -314,12 +314,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SyntacticTree/SyntacticTreeGenerator.cpp"
-            timestampString = "471773239.493525"
+            timestampString = "471774033.466311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "SyntacticTreeGenerator::generateTrees(std::string str)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SyntacticTree/SyntacticTreeGenerator.cpp"
+            timestampString = "471774000.283599"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "SyntacticTreeGenerator::formLexicon()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -16,6 +16,8 @@ SyntacticTreeGenerator::SyntacticTreeGenerator()
 
 void SyntacticTreeGenerator::formLexicon()
 {
+    
+    
     std::ifstream fin("case.lexicon");
     if(fin.fail())
     {
@@ -23,11 +25,15 @@ void SyntacticTreeGenerator::formLexicon()
     }
     else
     {
+        std::string input;
         std::string str;
         std::string grammaticalCase;
         
         while(!fin.eof())
         {
+            fin >> str >> grammaticalCase;
+            
+        
             if(grammaticalCase == "TOPIC") caseLexicon.push_back(Case(str, Case::TBD));
             else if(grammaticalCase == "SUBJECTIVE") caseLexicon.push_back(Case(str, Case::SUBJECTIVE));
             else if(grammaticalCase == "OBJECTIVE") caseLexicon.push_back(Case(str, Case::OBJECTIVE));
@@ -140,19 +146,42 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
     std::vector<SyntacticTree> candidates;
     
     
+
+    std::string tbd = tree.toBeDetermined + character;
     //들어온 문자가 어떤 뜻을 가지는지 모른다고 상정하는 경우
+
+    
     SyntacticTree defaultCaseTree = tree;
     defaultCaseTree.toBeDetermined += character;
     candidates.push_back(defaultCaseTree);
     
     
     //들어온 문자가 특정한 역할을 하는 경우
+    for(std::vector<Case>::iterator cIter = caseLexicon.begin(); cIter != caseLexicon.end(); cIter++)
+    {
+        size_t length = cIter->str.length();
+        
+        if(tbd.length() >= length)
+        {
+            std::string left = tbd.substr(0, tbd.length() - length);
+            std::string right = tbd.substr(tbd.length() - length, length);
+            
+            if(right == cIter->str)
+            {
+                candidates.push_back(projectCasePhrase(tree, right, cIter->grammaticalCase));
+            }
+        }
+        
+    }
+    
+    
+    
     if(character == "은")
     {
         //앞 단어가 받침이 없을 때만
         if( Decoder::endsWithCoda(tree.toBeDetermined) )
         {
-            candidates.push_back(projectCasePhrase(tree, character, Case::TBD));
+            //candidates.push_back(projectCasePhrase(tree, character, Case::TBD));
         }
         if( tree.toBeDetermined != "")
         {
@@ -164,7 +193,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
         //앞 단어가 받침이 있을 때만
         if( ! Decoder::endsWithCoda(tree.toBeDetermined) )
         {
-            candidates.push_back(projectCasePhrase(tree, character, Case::TBD));
+            //candidates.push_back(projectCasePhrase(tree, character, Case::TBD));
         }
         if( tree.toBeDetermined != "")
         {
@@ -175,21 +204,21 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
     {
         if( Decoder::endsWithCoda(tree.toBeDetermined) )
         {
-            candidates.push_back(projectCasePhrase(tree, character, Case::SUBJECTIVE));
+            //candidates.push_back(projectCasePhrase(tree, character, Case::SUBJECTIVE));
         }
     }
     else if(character == "가")
     {
         if( ! Decoder::endsWithCoda(tree.toBeDetermined) )
         {
-            candidates.push_back(projectCasePhrase(tree, character, Case::SUBJECTIVE));
+            //candidates.push_back(projectCasePhrase(tree, character, Case::SUBJECTIVE));
         }
     }
     else if(character == "을")
     {
         if( Decoder::endsWithCoda(tree.toBeDetermined) )
         {
-            candidates.push_back(projectCasePhrase(tree, character, Case::OBJECTIVE));
+            //candidates.push_back(projectCasePhrase(tree, character, Case::OBJECTIVE));
         }
         if( tree.toBeDetermined != "")
         {
@@ -200,7 +229,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
     {
         if( ! Decoder::endsWithCoda(tree.toBeDetermined) )
         {
-            candidates.push_back(projectCasePhrase(tree, character, Case::OBJECTIVE));
+            //candidates.push_back(projectCasePhrase(tree, character, Case::OBJECTIVE));
         }
     }
     else if(character == "다")
