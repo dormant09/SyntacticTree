@@ -10,6 +10,7 @@
 #define SyntacticTreeGenerator_hpp
 
 #include <string>
+#include <fstream>
 #include <iostream>
 #include <vector>
 #include "SyntacticTree.hpp"
@@ -29,6 +30,9 @@ class SyntacticTreeGenerator
     private :
     
     
+    std::vector<Case> caseLexicon;
+    
+    void formLexicon();
     
     std::vector<SyntacticTree> addCharacterToTree(SyntacticTree tree, std::string character);
     

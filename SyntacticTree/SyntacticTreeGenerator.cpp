@@ -11,8 +11,29 @@
 
 SyntacticTreeGenerator::SyntacticTreeGenerator()
 {
+    formLexicon();
 }
 
+void SyntacticTreeGenerator::formLexicon()
+{
+    std::ifstream fin("case.lexicon");
+    if(fin.fail())
+    {
+        std::cerr << std::strerror(errno);
+    }
+    else
+    {
+        std::string str;
+        std::string grammaticalCase;
+        
+        while(!fin.eof())
+        {
+            if(grammaticalCase == "TOPIC") caseLexicon.push_back(Case(str, Case::TBD));
+            else if(grammaticalCase == "SUBJECTIVE") caseLexicon.push_back(Case(str, Case::SUBJECTIVE));
+            else if(grammaticalCase == "OBJECTIVE") caseLexicon.push_back(Case(str, Case::OBJECTIVE));
+        }
+    }
+}
 
 std::vector<SyntacticTree> SyntacticTreeGenerator::generateTrees(std::string str)
 {
