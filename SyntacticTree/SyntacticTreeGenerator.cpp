@@ -240,6 +240,13 @@ SyntacticTree SyntacticTreeGenerator::projectComplementizerPhrase(SyntacticTree 
     SyntacticTree compTree = tree;
     Complementizer* c = new Complementizer(character);
     
+    Head* lastPhraseHead = tree.phraseStack.back()->getHead();
+    if(typeid(*lastPhraseHead) != typeid(Tense))
+    {
+        compTree = projectTensePhrase(compTree, "(+pres)", Tense::PRESENT);
+
+    }
+    
     compTree.project(c);
     
     return compTree;

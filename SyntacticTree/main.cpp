@@ -15,7 +15,7 @@ int main(int argc, const char * argv[])
     SyntacticTreeGenerator *stg = new SyntacticTreeGenerator();
     
     std::vector<SyntacticTree> trees;
-    trees = stg->generateTrees("나는 감을 먹는다");
+    trees = stg->generateTrees("나는 감을 먹다");
     
     for(std::vector<SyntacticTree>::iterator tIter = trees.begin(); tIter != trees.end(); tIter++)
     {

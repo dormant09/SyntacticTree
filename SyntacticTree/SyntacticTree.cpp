@@ -16,7 +16,6 @@ SyntacticTree::SyntacticTree()
 bool SyntacticTree::possibilityOfComplement(Head* head, XBar* xbar, Head* lastPhraseHead)
 {
     if(typeid(*head) == typeid(Postposition) && typeid(*lastPhraseHead) == typeid(Noun)) return true;
-    if(typeid(*head) == typeid(Postposition) && typeid(*lastPhraseHead) == typeid(Noun)) return true;
     if(typeid(*head) == typeid(Tense) && typeid(*lastPhraseHead) == typeid(Verb)) return true;
     if(typeid(*head) == typeid(Complementizer) && typeid(*lastPhraseHead) == typeid(Tense))
     {
