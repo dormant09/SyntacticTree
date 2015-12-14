@@ -22,20 +22,20 @@ class SyntacticTreeGenerator
     SyntacticTreeGenerator();
     
     
-    static std::vector<SyntacticTree> generateTrees(std::string str);
+    std::vector<SyntacticTree> generateTrees(std::string str);
     
     
     
     private :
     
-    static bool isHangeul(char initial);
     
-    static std::vector<SyntacticTree> addCharacterToTree(SyntacticTree tree, std::string character);
     
-    static SyntacticTree projectCasePhrase(SyntacticTree tree, std::string character, Case::Type grammaticalCase);
-    static SyntacticTree projectTensePhrase(SyntacticTree tree, std::string character, Tense::Type tense);
-    static SyntacticTree projectComplementizerPhrase(SyntacticTree tree, std::string character);
-    static SyntacticTree projectPostpositionPhrase(SyntacticTree tree, std::string character);
+    std::vector<SyntacticTree> addCharacterToTree(SyntacticTree tree, std::string character);
+    
+    SyntacticTree projectCasePhrase(SyntacticTree tree, std::string character, Case::Type grammaticalCase);
+    SyntacticTree projectTensePhrase(SyntacticTree tree, std::string character, Tense::Type tense);
+    SyntacticTree projectComplementizerPhrase(SyntacticTree tree, std::string character);
+    SyntacticTree projectPostpositionPhrase(SyntacticTree tree, std::string character);
     
 };
 #endif /* SyntacticTreeGenerator_hpp */

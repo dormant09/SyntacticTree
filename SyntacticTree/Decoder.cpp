@@ -55,3 +55,9 @@ std::string Decoder::extractLastCharacter(std::string str)
     
     return lastCharacter;
 }
+
+bool Decoder::isHangeul(char initial)
+{
+    //이진코드가 1110으로 시작하는지 확인
+    return (initial & 0x80) == 0x80;
+}

@@ -11,10 +11,10 @@
 
 int main(int argc, const char * argv[])
 {
-    static SyntacticTreeGenerator *stg = new SyntacticTreeGenerator();
+    SyntacticTreeGenerator *stg = new SyntacticTreeGenerator();
     
     std::vector<SyntacticTree> trees;
-    trees = stg->generateTrees("내가 시준이한테 책을 주었다");
+    trees = stg->generateTrees("나는 밥을 먹었다");
     
     for(std::vector<SyntacticTree>::iterator tIter = trees.begin(); tIter != trees.end(); tIter++)
     {

@@ -27,6 +27,7 @@ class Decoder
     static int decodeUnicode(std::string character);
     static bool endsWithCoda(std::string str);
     static std::string extractLastCharacter(std::string str);
+    static bool isHangeul(char initial);
 };
 
 #endif /* Decoder_hpp */
