@@ -120,17 +120,14 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
     
 
     std::string tbd = tree.toBeDetermined + character;
-    //들어온 문자가 어떤 뜻을 가지는지 모른다고 상정하는 경우
-
     
+    //들어온 문자가 어떤 뜻을 가지는지 모른다고 상정하는 경우
     SyntacticTree defaultCaseTree = tree;
     defaultCaseTree.toBeDetermined += character;
     candidates.push_back(defaultCaseTree);
     
     
     //들어온 문자가 특정한 역할을 하는 경우
-    
-    
     //Case
     for(int i = 3; i <= tbd.length(); i += 3)
     {
@@ -141,6 +138,20 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
         {
             candidates.push_back(projectPostpositionPhrase(tree, substring, pIter->second.grammaticalCase));
 
+        }
+    }
+    
+    //Complementizer
+    for(int i = 3; i <= tbd.length(); i += 3)
+    {
+        std::string substring = tbd.substr(tbd.length() - i, i);
+        std::map<std::string, Complementizer>::iterator cIter = lexicon.complementizers.find(substring);
+        
+        if(cIter != lexicon.complementizers.end())
+        {
+            
+            candidates.push_back(projectComplementizerPhrase(tree, substring));
+            
         }
     }
     
@@ -186,15 +197,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
         }
     }
     
-    if(character == "다")
-    {
-        Head* head = tree.phraseStack.back()->getHead();
-        if(typeid(*head) == typeid(Tense))
-        {
-            candidates.push_back(projectComplementizerPhrase(tree, character));
-        }
-        
-    }
+
     
     return candidates;
 }

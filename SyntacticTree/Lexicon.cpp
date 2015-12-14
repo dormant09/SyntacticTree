@@ -12,8 +12,12 @@ Lexicon::Lexicon()
 {
     formLexicon();
 }
-
 void Lexicon::formLexicon()
+{
+    formPostpositionLexicon();
+    formComplementizerLexicon();
+}
+void Lexicon::formPostpositionLexicon()
 {
     
     std::ifstream fin("postposition.lexicon");
@@ -49,3 +53,29 @@ void Lexicon::formLexicon()
         
     }
 }
+void Lexicon::formComplementizerLexicon()
+{
+    
+    std::ifstream fin("complementizer.lexicon");
+    if(fin.fail())
+    {
+        std::cerr << std::strerror(errno);
+    }
+    else
+    {
+        std::string input;
+        std::string str;
+        
+        while(!fin.eof())
+        {
+            fin >> str;
+        
+            complementizers.insert(std::map<std::string, Complementizer>::value_type(str, Complementizer(str)));
+            
+        
+            
+        }
+        
+    }
+}
+

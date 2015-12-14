@@ -25,6 +25,13 @@ class Lexicon
     
     
     std::map<std::string, Postposition> postpositions;
+    std::map<std::string, Complementizer> complementizers;
+    
+    private :
+    
+    void formPostpositionLexicon();
+    void formComplementizerLexicon();
+    
 };
 
 #endif /* Lexicon_hpp */
