@@ -195,10 +195,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacterToTree(SyntacticT
             copyTree.toBeDetermined += Decoder::deleteCoda(character);
             candidates.push_back(projectTensePhrase(copyTree, coda, Tense::PAST));
         }
-    }
-    
-
-    
+    }    
     return candidates;
 }
 SyntacticTree SyntacticTreeGenerator::projectPostpositionPhrase(SyntacticTree tree, std::string character)

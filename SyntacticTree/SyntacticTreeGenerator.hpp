@@ -35,7 +35,7 @@ class SyntacticTreeGenerator
     
     
     std::vector<SyntacticTree> addCharacterToTree(SyntacticTree tree, std::string character);
-    
+
     SyntacticTree projectPostpositionPhrase(SyntacticTree tree, std::string character, Case::Type grammaticalCase);
     SyntacticTree projectTensePhrase(SyntacticTree tree, std::string character, Tense::Type tense);
     SyntacticTree projectComplementizerPhrase(SyntacticTree tree, std::string character);

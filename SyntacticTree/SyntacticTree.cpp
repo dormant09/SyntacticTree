@@ -21,8 +21,7 @@ bool SyntacticTree::possibilityOfComplement(Head* head, XBar* xbar, Head* lastPh
     {
         Tense* lastTense = dynamic_cast<Tense*>(lastPhraseHead);
         if(lastTense->tense != Tense::FUTURE) return true;
-    }
-    if(typeid(*head) == typeid(Verb) && typeid(*lastPhraseHead) == typeid(Postposition))
+    }    if(typeid(*head) == typeid(Verb) && typeid(*lastPhraseHead) == typeid(Postposition))
     {
         Postposition* lastPP = dynamic_cast<Postposition*>(lastPhraseHead);
         if(lastPP->grammaticalCase == Case::OBJECTIVE || lastPP->grammaticalCase == Case::TBD) return true;
