@@ -18,10 +18,12 @@ class SyntacticTree
     public :
     
     SyntacticTree();
+    ~SyntacticTree();
     
     SyntacticTree addCharToTBD(std::string character);
 
     std::string toBeDetermined;
+    std::vector<Phrase*> phraseStack;
     
     
 };

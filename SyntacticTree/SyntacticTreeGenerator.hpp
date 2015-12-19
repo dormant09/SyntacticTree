@@ -10,8 +10,8 @@
 #define SyntacticTreeGenerator_hpp
 
 #include <string>
-#include <iostream>
 #include <vector>
+#include "Lexicon.hpp"
 #include "SyntacticTree.hpp"
 
 class SyntacticTreeGenerator
@@ -25,10 +25,12 @@ class SyntacticTreeGenerator
     
     private :
     
+    Lexicon lexicon;
+    std::vector<SyntacticTree> trees;
     
+    SyntacticTree projectHead(SyntacticTree tree, Head* h);
     std::vector<SyntacticTree> addCharacter(SyntacticTree tree, std::string character);
     std::vector<SyntacticTree> generatePartOfTrees(std::string str);
-    std::vector<SyntacticTree> trees;
     
 };
 #endif /* SyntacticTreeGenerator_hpp */

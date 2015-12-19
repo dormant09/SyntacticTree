@@ -11,13 +11,15 @@
 		CA636DB61C19940400A56141 /* SyntacticTreeGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA636DB41C19940400A56141 /* SyntacticTreeGenerator.cpp */; };
 		CA636DB91C1994B100A56141 /* SyntacticTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA636DB71C1994B100A56141 /* SyntacticTree.cpp */; };
 		CA67947B1C257D990053AF7B /* Decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA6794791C257D990053AF7B /* Decoder.cpp */; };
+		CA67947E1C2583C40053AF7B /* SyntacticNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA67947C1C2583C40053AF7B /* SyntacticNode.cpp */; };
+		CA6794811C2586580053AF7B /* Lexicon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA67947F1C2586580053AF7B /* Lexicon.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		CA636DA81C19936600A56141 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
+			dstPath = "";
 			dstSubfolderSpec = 0;
 			files = (
 			);
@@ -34,6 +36,10 @@
 		CA636DB81C1994B100A56141 /* SyntacticTree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SyntacticTree.hpp; sourceTree = "<group>"; };
 		CA6794791C257D990053AF7B /* Decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Decoder.cpp; sourceTree = "<group>"; };
 		CA67947A1C257D990053AF7B /* Decoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Decoder.hpp; sourceTree = "<group>"; };
+		CA67947C1C2583C40053AF7B /* SyntacticNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SyntacticNode.cpp; sourceTree = "<group>"; };
+		CA67947D1C2583C40053AF7B /* SyntacticNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SyntacticNode.hpp; sourceTree = "<group>"; };
+		CA67947F1C2586580053AF7B /* Lexicon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lexicon.cpp; sourceTree = "<group>"; };
+		CA6794801C2586580053AF7B /* Lexicon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Lexicon.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,12 +73,16 @@
 			isa = PBXGroup;
 			children = (
 				CA636DAD1C19936600A56141 /* main.cpp */,
-				CA636DB41C19940400A56141 /* SyntacticTreeGenerator.cpp */,
-				CA636DB51C19940400A56141 /* SyntacticTreeGenerator.hpp */,
-				CA636DB71C1994B100A56141 /* SyntacticTree.cpp */,
-				CA636DB81C1994B100A56141 /* SyntacticTree.hpp */,
 				CA6794791C257D990053AF7B /* Decoder.cpp */,
 				CA67947A1C257D990053AF7B /* Decoder.hpp */,
+				CA67947F1C2586580053AF7B /* Lexicon.cpp */,
+				CA6794801C2586580053AF7B /* Lexicon.hpp */,
+				CA67947C1C2583C40053AF7B /* SyntacticNode.cpp */,
+				CA67947D1C2583C40053AF7B /* SyntacticNode.hpp */,
+				CA636DB71C1994B100A56141 /* SyntacticTree.cpp */,
+				CA636DB81C1994B100A56141 /* SyntacticTree.hpp */,
+				CA636DB41C19940400A56141 /* SyntacticTreeGenerator.cpp */,
+				CA636DB51C19940400A56141 /* SyntacticTreeGenerator.hpp */,
 			);
 			path = SyntacticTree;
 			sourceTree = "<group>";
@@ -103,6 +113,9 @@
 		CA636DA21C19936600A56141 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					Dictionary,
+				);
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Sijoon Kim";
 				TargetAttributes = {
@@ -137,6 +150,8 @@
 				CA636DB61C19940400A56141 /* SyntacticTreeGenerator.cpp in Sources */,
 				CA67947B1C257D990053AF7B /* Decoder.cpp in Sources */,
 				CA636DAE1C19936600A56141 /* main.cpp in Sources */,
+				CA6794811C2586580053AF7B /* Lexicon.cpp in Sources */,
+				CA67947E1C2583C40053AF7B /* SyntacticNode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

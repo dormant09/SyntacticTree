@@ -12,10 +12,14 @@
 SyntacticTree::SyntacticTree()
 {
 }
-
+SyntacticTree::~SyntacticTree()
+{
+    phraseStack.clear();
+}
 SyntacticTree SyntacticTree::addCharToTBD(std::string character)
 {
     SyntacticTree addedTree = *this;
     addedTree.toBeDetermined += character;
     return addedTree;
 }
+
