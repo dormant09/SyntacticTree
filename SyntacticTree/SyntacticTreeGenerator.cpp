@@ -25,16 +25,21 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::generatePartOfTrees(std::stri
     }
     else
     {
-        /*
-         
-         TODO
-         
-         lastCharacter 뽑아내기
-         lastCharacter를 지워서 Recursive function에 넣기
-         받아온 결과에 lastCharacter를 넣기
-         
-         */
-        return std::vector<SyntacticTree>();
+        std::vector<SyntacticTree> oldList, newList;
+        
+        std::string lastCharacter = Decoder::extractLastCharacter(str);
+        std::string remainder = Decoder::deleteLastCharacter(str);
+        
+        oldList = generatePartOfTrees(remainder);
+        
+        for(std::vector<SyntacticTree>::iterator tIter = oldList.begin(); tIter != oldList.end(); tIter++)
+        {
+            std::vector<SyntacticTree> addedTrees = addCharacter(*tIter, lastCharacter);
+            newList.insert(std::end(newList), std::begin(addedTrees), std::end(addedTrees));
+        }
+        
+        oldList.clear();
+        return newList;
     }
     
 }
@@ -42,59 +47,23 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::generatePartOfTrees(std::stri
 void SyntacticTreeGenerator::generateTrees(std::string str)
 {
     trees = generatePartOfTrees(str);
-    /*
-    std::vector<SyntacticTree> oTrees;
-    std::vector<SyntacticTree> nTrees;
-    
-    std::vector<SyntacticTree>::iterator tIter, candidate;
-    
-    std::string character;
-    
-    
-    oTrees.push_back( SyntacticTree() );
-    
-    
-    for(std::string::iterator sIter = str.begin(); sIter != str.end();)
-    {
-        character = "";
-        nTrees.clear();
-        
-        
-        if(isHangeul(*sIter))
-        {
-            character += *(sIter);
-            character += *(sIter + 1);
-            character += *(sIter + 2);
-            
-            
-            
-            for(tIter = oTrees.begin(); tIter != oTrees.end(); tIter++)
-            {
-                std::vector<SyntacticTree> candidates = tIter->add(character);
-                
-                for(candidate = candidates.begin(); candidate != candidates.end(); candidate++)
-                {
-                    if(candidate->isValid()) nTrees.push_back(*candidate);
-                }
-                
-            }
-            
-            
-            //UTF-8에서 한글은 3bytes이므로 3칸씩 건너 뜀
-            sIter += 3;
-        }
-        else
-        {
-            sIter++;
-        }
-        
-        oTrees.clear();
-        while(!nTrees.empty())
-        {
-            oTrees.push_back(nTrees.back());
-            nTrees.pop_back();
-        }
-        
-    }
-     */
 }
+
+std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tree, std::string character)
+{
+    std::vector<SyntacticTree> trees;
+
+    trees.push_back(tree.addCharToTBD(character));
+    
+    
+    /*
+     
+     TODO
+     
+     character가 특별한 의미를 지니는 경우 처리
+     
+     */
+    
+    return trees;
+}
+

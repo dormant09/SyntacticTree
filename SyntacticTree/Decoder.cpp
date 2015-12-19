@@ -43,15 +43,43 @@ bool Decoder::endsWithCoda(std::string str)
     
     return (pos % HANGEUL_CODA_NUM != 0);
 }
+bool Decoder::isHangeul(char initial)
+{
+    //이진코드가 1110으로 시작하는지 확인
+    return (initial & 0xF0) == 0xE0;
+}
+
 
 std::string Decoder::extractLastCharacter(std::string str)
 {
     std::string lastCharacter = "";
     
-    for(std::string::iterator sIter = str.end() - 3; sIter != str.end(); sIter++)
+    if(isHangeul(*(str.end() - 3)))
     {
-        lastCharacter += *sIter;
+        lastCharacter += *(str.end() - 3);
+        lastCharacter += *(str.end() - 2);
+        lastCharacter += *(str.end() - 1);
+    }
+    else
+    {
+        lastCharacter += *(str.end() - 1);
     }
     
     return lastCharacter;
+}
+
+std::string Decoder::deleteLastCharacter(std::string str)
+{
+    std::string deletedStr;
+    
+    if(isHangeul(*(str.end() - 3)))
+    {
+        deletedStr = str.substr(0, str.length() - 3);
+    }
+    else
+    {
+        deletedStr = str.substr(0, str.length() - 1);
+    }
+    
+    return deletedStr;
 }

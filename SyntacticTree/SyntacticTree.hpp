@@ -19,10 +19,8 @@ class SyntacticTree
     
     SyntacticTree();
     
+    SyntacticTree addCharToTBD(std::string character);
 
-    
-    private :
-    
     std::string toBeDetermined;
     
     

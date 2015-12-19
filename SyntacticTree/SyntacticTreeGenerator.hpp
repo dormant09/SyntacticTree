@@ -26,6 +26,7 @@ class SyntacticTreeGenerator
     private :
     
     
+    std::vector<SyntacticTree> addCharacter(SyntacticTree tree, std::string character);
     std::vector<SyntacticTree> generatePartOfTrees(std::string str);
     std::vector<SyntacticTree> trees;
     
