@@ -17,22 +17,13 @@ class SyntacticTree
 {
     public :
     
-        SyntacticTree();
+    SyntacticTree();
     
-    
-        std::vector<SyntacticTree> add(std::string character);
-    
-        bool isValid();
-    
-        void setValid();
-    
-    
+
     
     private :
     
-        bool validity;
-    
-        std::string toBeDetermined;
+    std::string toBeDetermined;
     
     
 };

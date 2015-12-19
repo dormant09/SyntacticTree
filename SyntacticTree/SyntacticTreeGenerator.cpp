@@ -11,11 +11,38 @@
 
 SyntacticTreeGenerator::SyntacticTreeGenerator()
 {
+    //file load.
+    
 }
 
+std::vector<SyntacticTree> SyntacticTreeGenerator::generatePartOfTrees(std::string str)
+{
+    if(str.empty())
+    {
+        std::vector<SyntacticTree> initialList;
+        initialList.push_back(SyntacticTree());
+        return initialList;
+    }
+    else
+    {
+        /*
+         
+         TODO
+         
+         lastCharacter 뽑아내기
+         lastCharacter를 지워서 Recursive function에 넣기
+         받아온 결과에 lastCharacter를 넣기
+         
+         */
+        return std::vector<SyntacticTree>();
+    }
+    
+}
 
 void SyntacticTreeGenerator::generateTrees(std::string str)
 {
+    trees = generatePartOfTrees(str);
+    /*
     std::vector<SyntacticTree> oTrees;
     std::vector<SyntacticTree> nTrees;
     
@@ -69,12 +96,5 @@ void SyntacticTreeGenerator::generateTrees(std::string str)
         }
         
     }
-}
-
-//Private functions
-
-bool SyntacticTreeGenerator::isHangeul(char initial)
-{
-    //이진코드가 1110으로 시작하는지 확인
-    return (initial & 0x80) == 0x80;
+     */
 }
