@@ -120,6 +120,21 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord, "Complementizer")));
     }
+    if(lexicon.adjectives.find(notTaggedWord) != lexicon.adjectives.end())
+    {
+        trees.push_back(projectHead(tree, new Head(notTaggedWord, "Adjective")));
+    }
+    if(lexicon.adverbs.find(notTaggedWord) != lexicon.adverbs.end())
+    {
+        trees.push_back(projectHead(tree, new Head(notTaggedWord, "Adverb")));
+    }
+    
+    /*
+     trees를 돌면서
+     \phi가 붙을 수 있는지를 검사
+     붙을 수 있으면 붙은 것과 붙지 않은 것을 만든다.
+     
+     */
     return trees;
 }
 
@@ -193,8 +208,6 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::generatePartOfTrees(std::stri
 void SyntacticTreeGenerator::generateTrees(std::string str)
 {
     trees = generatePartOfTrees(str);
-    
-    
 }
 
 void SyntacticTreeGenerator::printTrees()

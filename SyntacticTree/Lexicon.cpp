@@ -21,6 +21,8 @@ bool Lexicon::loadFiles()
     if(!loadVerbDictionary()) return false;
     if(!loadTenseDictionary()) return false;
     if(!loadComplementizerDictionary()) return false;
+    if(!loadAdjectiveDictionary()) return false;
+    if(!loadAdverbDictionary()) return false;
     
     if(!loadComplementRule()) return false;
     if(!loadAdjunctRule()) return false;
@@ -132,6 +134,49 @@ bool Lexicon::loadComplementizerDictionary()
             fileIn >> str;
             
             complementizers.insert(str);
+            
+        }
+        return true;
+    }
+}
+bool Lexicon::loadAdjectiveDictionary()
+{
+    std::ifstream fileIn("Resources/adjectives.lex");
+    if(fileIn.fail())
+    {
+        std::cerr << "File not found : " << std::strerror(errno) << std::endl;
+        return false;
+    }
+    else
+    {
+        while(!fileIn.eof())
+        {
+            std::string str;
+            fileIn >> str;
+            
+            adjectives.insert(str);
+            
+        }
+        return true;
+    }
+}
+
+bool Lexicon::loadAdverbDictionary()
+{
+    std::ifstream fileIn("Resources/adverbs.lex");
+    if(fileIn.fail())
+    {
+        std::cerr << "File not found : " << std::strerror(errno) << std::endl;
+        return false;
+    }
+    else
+    {
+        while(!fileIn.eof())
+        {
+            std::string str;
+            fileIn >> str;
+            
+            adverbs.insert(str);
             
         }
         return true;
