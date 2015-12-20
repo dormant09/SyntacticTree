@@ -21,6 +21,7 @@ class SyntacticTreeGenerator
     
     SyntacticTreeGenerator();
     void generateTrees(std::string str);
+    void printTrees();
     
     
     private :

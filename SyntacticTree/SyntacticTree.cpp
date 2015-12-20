@@ -23,3 +23,10 @@ SyntacticTree SyntacticTree::addCharToTBD(std::string character)
     return addedTree;
 }
 
+void SyntacticTree::printTree()
+{
+    if(phraseStack.size() == 1)
+    {
+        phraseStack.back()->print();
+    }
+}

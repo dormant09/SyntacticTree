@@ -18,6 +18,9 @@ class SyntacticNode
     SyntacticNode();
     
     virtual std::string getPartOfSpeech() = 0;
+    virtual void print() = 0;
+    
+    static std::string makeAcronym(std::string pos);
 };
 
 class Phrase;
@@ -33,6 +36,7 @@ class Phrase : public SyntacticNode
     ~Phrase();
     
     std::string getPartOfSpeech();
+    void print();
     
     XBar* xbarChild;
     Phrase* spec;
@@ -49,6 +53,7 @@ class XBar : public SyntacticNode
     ~XBar();
     
     std::string getPartOfSpeech();
+    void print();
     
     XBar* xbarChild;
     Phrase* adjunct;
@@ -65,7 +70,7 @@ class Head : public SyntacticNode
     Head();
     Head(std::string str, std::string pos): str(str), partOfSpeech(pos) {};
   
-    
+    void print();
     std::string getPartOfSpeech();
     
     std::string str;

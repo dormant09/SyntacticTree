@@ -9,6 +9,7 @@
 #ifndef SyntacticTree_hpp
 #define SyntacticTree_hpp
 
+#include <iostream>
 #include <vector>
 #include "SyntacticNode.hpp"
 #include "Decoder.hpp"
@@ -21,6 +22,7 @@ class SyntacticTree
     ~SyntacticTree();
     
     SyntacticTree addCharToTBD(std::string character);
+    void printTree();
 
     std::string toBeDetermined;
     std::vector<Phrase*> phraseStack;

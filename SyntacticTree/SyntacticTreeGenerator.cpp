@@ -195,3 +195,12 @@ void SyntacticTreeGenerator::generateTrees(std::string str)
     
     
 }
+
+void SyntacticTreeGenerator::printTrees()
+{
+    for(std::vector<SyntacticTree>::iterator tIter = trees.begin(); tIter != trees.end(); tIter++)
+    {
+        tIter->printTree();
+        std::cout<<std::endl;
+    }
+}

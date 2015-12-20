@@ -14,6 +14,16 @@ SyntacticNode::SyntacticNode()
     
 }
 
+std::string SyntacticNode::makeAcronym(std::string pos)
+{
+    if(pos == "Complementizer") return "C";
+    else if(pos == "Tense") return "T";
+    else if(pos == "Verb") return "V";
+    else if(pos == "Noun") return "N";
+    else if(pos == "Postposition") return "P";
+    else return "X";
+}
+
 Phrase::~Phrase()
 {
     if(xbarChild != NULL)
@@ -47,6 +57,24 @@ XBar::~XBar()
 }
 
 
+void Phrase::print()
+{
+    std::cout << "[" << makeAcronym(getPartOfSpeech()) << "P ";
+    
+    if(spec != NULL)
+    {
+        spec->print();
+        std::cout << " ";
+    }
+    
+    if(xbarChild != NULL)
+    {
+        xbarChild->print();
+    }
+    
+    std::cout << "]";
+    
+}
 
 std::string Phrase::getPartOfSpeech()
 {
@@ -54,11 +82,43 @@ std::string Phrase::getPartOfSpeech()
     else return "";
 }
 
+void XBar::print()
+{
+    std::cout << "[" << makeAcronym(getPartOfSpeech()) << "' ";
+    
+    if(complement != NULL)
+    {
+        complement->print();
+        std::cout << " ";
+    }
+    if(headChild != NULL)
+    {
+        headChild->print();
+    }
+    
+    
+    if(adjunct != NULL)
+    {
+        adjunct->print();
+        std::cout << " ";
+    }
+    if(xbarChild != NULL)
+    {
+        xbarChild->print();
+    }
+    
+    std::cout << "]";
+}
 std::string XBar::getPartOfSpeech()
 {
     if(headChild != NULL) return headChild->getPartOfSpeech();
     else if(xbarChild != NULL) return xbarChild->getPartOfSpeech();
     else return "";
+}
+
+void Head::print()
+{
+    std::cout << "[" << makeAcronym(getPartOfSpeech()) << " " << str << "]";
 }
 std::string Head::getPartOfSpeech()
 {
