@@ -24,9 +24,6 @@ bool Lexicon::loadFiles()
     if(!loadAdjectiveDictionary()) return false;
     if(!loadAdverbDictionary()) return false;
     
-    if(!loadComplementRule()) return false;
-    if(!loadAdjunctRule()) return false;
-    if(!loadSpecRule()) return false;
 
     return true;
 }
@@ -182,70 +179,6 @@ bool Lexicon::loadAdverbDictionary()
         return true;
     }
 }
-bool Lexicon::loadComplementRule()
-{
-    std::ifstream fileIn("Resources/complement.psr");
-    if(fileIn.fail())
-    {
-        std::cerr << "File not found : " << std::strerror(errno) << std::endl;
-        return false;
-    }
-    else
-    {
-        while(!fileIn.eof())
-        {
-            std::string left, right;
-            fileIn >> left >> right;
-            
-            complementRule.insert(std::make_pair(left, right));
-            
-        }
-        return true;
-    }
-}
 
-bool Lexicon::loadAdjunctRule()
-{
-    std::ifstream fileIn("Resources/adjunct.psr");
-    if(fileIn.fail())
-    {
-        std::cerr << "File not found : " << std::strerror(errno) << std::endl;
-        return false;
-    }
-    else
-    {
-        while(!fileIn.eof())
-        {
-            std::string left, right;
-            fileIn >> left >> right;
-            
-            adjunctRule.insert(std::make_pair(left, right));
-            
-        }
-        return true;
-    }
-}
-
-bool Lexicon::loadSpecRule()
-{
-    std::ifstream fileIn("Resources/spec.psr");
-    if(fileIn.fail())
-    {
-        std::cerr << "File not found : " << std::strerror(errno) << std::endl;
-        return false;
-    }
-    else
-    {
-        while(!fileIn.eof())
-        {
-            std::string left, right;
-            fileIn >> left >> right;
-            
-            specRule.insert(std::make_pair(left, right));
-            
-        }
-        return true;
-    }
-}
 
 

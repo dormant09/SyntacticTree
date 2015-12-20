@@ -56,7 +56,58 @@ XBar::~XBar()
     }
 }
 
-
+Head::Head(std::string str, std::string pos)
+{
+    this->str = str;
+    this->partOfSpeech = pos;
+    
+    if(pos == "Verb")
+    {
+        //VP는 T의 complemnt가 될 수 있음을 의미
+        conjugatable.insert(std::make_pair("Complement", "Tense"));
+    }
+    else if(pos == "Tense")
+    {
+        conjugatable.insert(std::make_pair("Complement", "Complementizer"));
+    }
+    else if(pos == "Noun")
+    {
+        conjugatable.insert(std::make_pair("Complement", "Postposition"));
+    }
+    else if(pos == "Adverb")
+    {
+        conjugatable.insert(std::make_pair("Adjunct", "Verb"));
+        conjugatable.insert(std::make_pair("Adjunct", "Adjective"));
+    }
+    else if(pos == "Adjective")
+    {
+        conjugatable.insert(std::make_pair("Adjunct", "Noun"));
+    }
+    else if(pos == "Postposition")
+    {
+        if(str == "은" || str == "는" || str == "ㄴ")
+        {
+            conjugatable.insert(std::make_pair("Adjunct", "Verb"));
+            conjugatable.insert(std::make_pair("Spec", "Tense"));
+        }
+        else if(str == "을" || str == "를" || str == "ㄹ")
+        {
+            conjugatable.insert(std::make_pair("Adjunct", "Verb"));
+        }
+        else if(str == "이" || str == "가")
+        {
+            conjugatable.insert(std::make_pair("Spec", "Tense"));
+        }
+        else if(str == "의")
+        {
+            conjugatable.insert(std::make_pair("Adjunct", "Noun"));
+        }
+    }
+    else if(pos == "Complementizer")
+    {
+        
+    }
+}
 void Phrase::print()
 {
     std::cout << "[" << makeAcronym(getPartOfSpeech()) << "P ";
@@ -80,6 +131,11 @@ std::string Phrase::getPartOfSpeech()
 {
     if(xbarChild != NULL) return xbarChild->getPartOfSpeech();
     else return "";
+}
+bool Phrase::find(std::pair<std::string, std::string> pair)
+{
+    if(xbarChild != NULL) return xbarChild->find(pair);
+    else return false;
 }
 
 void XBar::print()
@@ -115,6 +171,14 @@ std::string XBar::getPartOfSpeech()
     else if(xbarChild != NULL) return xbarChild->getPartOfSpeech();
     else return "";
 }
+bool XBar::find(std::pair<std::string, std::string> pair)
+{
+    if(headChild != NULL) return headChild->find(pair);
+    else if(xbarChild != NULL) return xbarChild->find(pair);
+    else return false;
+}
+    
+
 
 void Head::print()
 {
@@ -123,4 +187,9 @@ void Head::print()
 std::string Head::getPartOfSpeech()
 {
     return partOfSpeech;
+}
+bool Head::find(std::pair<std::string, std::string> pair)
+{
+    bool result = conjugatable.find(pair) != conjugatable.end();
+    return result;
 }

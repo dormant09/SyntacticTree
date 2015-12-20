@@ -35,9 +35,7 @@ SyntacticTree SyntacticTreeGenerator::projectHead(SyntacticTree tree, Head* h)
     //Complement
     if(lastPhrase != NULL)
     {
-        std::pair< std::string, std::string > posPair;
-        posPair = std::make_pair(lastPhrase->getPartOfSpeech(), h->getPartOfSpeech());
-        if(lexicon.complementRule.find(posPair) != lexicon.complementRule.end())
+        if(lastPhrase->find(std::make_pair("Complement", h->getPartOfSpeech())))
         {
             xbar->complement = lastPhrase;
             addedTree.phraseStack.pop_back();
@@ -51,9 +49,7 @@ SyntacticTree SyntacticTreeGenerator::projectHead(SyntacticTree tree, Head* h)
     while(lastPhrase != NULL)
     {
         XBar* adjunctXbar = new XBar(xbar);
-        std::pair< std::string, std::string > posPair;
-        posPair = std::make_pair(lastPhrase->getPartOfSpeech(), h->getPartOfSpeech());
-        if(lexicon.adjunctRule.find(posPair) != lexicon.adjunctRule.end())
+        if(lastPhrase->find(std::make_pair("Adjunct", h->getPartOfSpeech())))
         {
             adjunctXbar->adjunct = lastPhrase;
             addedTree.phraseStack.pop_back();
@@ -74,9 +70,7 @@ SyntacticTree SyntacticTreeGenerator::projectHead(SyntacticTree tree, Head* h)
     //Spec
     if(lastPhrase != NULL)
     {
-        std::pair< std::string, std::string > posPair;
-        posPair = std::make_pair(lastPhrase->getPartOfSpeech(), h->getPartOfSpeech());
-        if(lexicon.specRule.find(posPair) != lexicon.specRule.end())
+        if(lastPhrase->find(std::make_pair("Spec", h->getPartOfSpeech())))
         {
             phrase->spec = lastPhrase;
             addedTree.phraseStack.pop_back();

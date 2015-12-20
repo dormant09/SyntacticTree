@@ -23,7 +23,7 @@ class Lexicon
     bool loadFiles();
     
     std::set<std::string> nouns, postpositions, verbs, tenses, complementizers, adverbs, adjectives;
-    std::set< std::pair<std::string, std::string> > complementRule, adjunctRule, specRule;
+    
     
     private :
     
@@ -35,8 +35,5 @@ class Lexicon
     bool loadAdverbDictionary();
     bool loadAdjectiveDictionary();
     
-    bool loadComplementRule();
-    bool loadAdjunctRule();
-    bool loadSpecRule();
 };
 #endif /* Lexicon_hpp */

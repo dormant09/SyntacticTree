@@ -11,6 +11,7 @@
 
 #include <string>
 #include <iostream>
+#include <set>
 
 class SyntacticNode
 {
@@ -18,6 +19,7 @@ class SyntacticNode
     SyntacticNode();
     
     virtual std::string getPartOfSpeech() = 0;
+    virtual bool find(std::pair<std::string, std::string> pair) = 0;
     virtual void print() = 0;
     
     static std::string makeAcronym(std::string pos);
@@ -36,6 +38,7 @@ class Phrase : public SyntacticNode
     ~Phrase();
     
     std::string getPartOfSpeech();
+    bool find(std::pair<std::string, std::string> pair);
     void print();
     
     XBar* xbarChild;
@@ -53,6 +56,7 @@ class XBar : public SyntacticNode
     ~XBar();
     
     std::string getPartOfSpeech();
+    bool find(std::pair<std::string, std::string> pair);
     void print();
     
     XBar* xbarChild;
@@ -68,12 +72,15 @@ class Head : public SyntacticNode
     public :
     
     Head();
-    Head(std::string str, std::string pos): str(str), partOfSpeech(pos) {};
+    Head(std::string str, std::string pos);
   
     void print();
     std::string getPartOfSpeech();
+    bool find(std::pair<std::string, std::string> pair);
     
     std::string str;
     std::string partOfSpeech;
+    
+    std::set< std::pair<std::string, std::string> > conjugatable;
 };
 #endif /* SyntacticNode_hpp */
