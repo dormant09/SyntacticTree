@@ -32,6 +32,7 @@ SyntacticTree SyntacticTreeGenerator::projectHead(SyntacticTree tree, Head* h)
      나중에 함수로 따로 빼내서 XBar가 반복되는 경우를 처리
      complement를 취할 수 있어도, 취하지 않는 경우의 트리도 만들어야 함.
      */
+    //Complement
     if(lastPhrase != NULL)
     {
         std::pair< std::string, std::string > posPair;
@@ -46,10 +47,43 @@ SyntacticTree SyntacticTreeGenerator::projectHead(SyntacticTree tree, Head* h)
         }
     }
     
+    //Adjunct
+    if(lastPhrase != NULL)
+    {
+        XBar* adjunctXbar = new XBar(xbar);
+        std::pair< std::string, std::string > posPair;
+        posPair = std::make_pair(lastPhrase->getPartOfSpeech(), h->getPartOfSpeech());
+        if(lexicon.adjunctRule.find(posPair) != lexicon.adjunctRule.end())
+        {
+            adjunctXbar->adjunct = lastPhrase;
+            addedTree.phraseStack.pop_back();
+            
+            if(addedTree.phraseStack.empty()) lastPhrase = NULL;
+            else lastPhrase = addedTree.phraseStack.back();
+            
+            xbar = adjunctXbar;
+        }
+    }
+    
     
     
     //Phrase Projection
     Phrase* phrase = new Phrase(xbar);
+    
+    //Spec
+    if(lastPhrase != NULL)
+    {
+        std::pair< std::string, std::string > posPair;
+        posPair = std::make_pair(lastPhrase->getPartOfSpeech(), h->getPartOfSpeech());
+        if(lexicon.specRule.find(posPair) != lexicon.specRule.end())
+        {
+            phrase->spec = lastPhrase;
+            addedTree.phraseStack.pop_back();
+            
+            if(addedTree.phraseStack.empty()) lastPhrase = NULL;
+            else lastPhrase = addedTree.phraseStack.back();
+        }
+    }
     
     addedTree.phraseStack.push_back(phrase);
     
@@ -73,8 +107,18 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord, "Postposition")));
     }
-    
-    
+    if(lexicon.verbs.find(notTaggedWord + "다") != lexicon.verbs.end())
+    {
+        trees.push_back(projectHead(tree, new Head(notTaggedWord, "Verb")));
+    }
+    if(lexicon.tenses.find(notTaggedWord) != lexicon.tenses.end())
+    {
+        trees.push_back(projectHead(tree, new Head(notTaggedWord, "Tense")));
+    }
+    if(lexicon.complementizers.find(notTaggedWord) != lexicon.complementizers.end())
+    {
+        trees.push_back(projectHead(tree, new Head(notTaggedWord, "Complementizer")));
+    }
     return trees;
 }
 
@@ -110,7 +154,35 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::generatePartOfTrees(std::stri
         }
         else
         {
-            return generatePartOfTrees(remainder);
+            oldList = generatePartOfTrees(remainder);
+            
+            if(lastCharacter == " ")
+            {
+                for(std::vector<SyntacticTree>::iterator tIter = oldList.begin(); tIter != oldList.end(); tIter++)
+                {
+                    if(tIter->toBeDetermined.empty())
+                    {
+                        newList.push_back(*tIter);
+                    }
+                }
+                
+                return newList;
+            }
+            else if(lastCharacter == ".")
+            {
+                for(std::vector<SyntacticTree>::iterator tIter = oldList.begin(); tIter != oldList.end(); tIter++)
+                {
+                    if(tIter->toBeDetermined.empty() && tIter->phraseStack.size() == 1)
+                    {
+                        newList.push_back(*tIter);
+                    }
+                }
+                
+                return newList;
+            }
+            
+            return oldList;
+            
         }
         
     }
@@ -120,4 +192,6 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::generatePartOfTrees(std::stri
 void SyntacticTreeGenerator::generateTrees(std::string str)
 {
     trees = generatePartOfTrees(str);
+    
+    
 }

@@ -18,8 +18,13 @@ bool Lexicon::loadFiles()
 {
     if(!loadNounDictionary()) return false;
     if(!loadPostpositionDictionary()) return false;
+    if(!loadVerbDictionary()) return false;
+    if(!loadTenseDictionary()) return false;
+    if(!loadComplementizerDictionary()) return false;
     
     if(!loadComplementRule()) return false;
+    if(!loadAdjunctRule()) return false;
+    if(!loadSpecRule()) return false;
 
     return true;
 }
@@ -67,6 +72,71 @@ bool Lexicon::loadNounDictionary()
     }
 }
 
+bool Lexicon::loadVerbDictionary()
+{
+    std::ifstream fileIn("Resources/verbs.lex");
+    if(fileIn.fail())
+    {
+        std::cerr << "File not found : " << std::strerror(errno) << std::endl;
+        return false;
+    }
+    else
+    {
+        while(!fileIn.eof())
+        {
+            std::string str;
+            fileIn >> str;
+            
+            verbs.insert(str);
+            
+        }
+        return true;
+    }
+}
+
+bool Lexicon::loadTenseDictionary()
+{
+    std::ifstream fileIn("Resources/tenses.lex");
+    if(fileIn.fail())
+    {
+        std::cerr << "File not found : " << std::strerror(errno) << std::endl;
+        return false;
+    }
+    else
+    {
+        while(!fileIn.eof())
+        {
+            std::string str;
+            fileIn >> str;
+            
+            tenses.insert(str);
+            
+        }
+        return true;
+    }
+}
+
+bool Lexicon::loadComplementizerDictionary()
+{
+    std::ifstream fileIn("Resources/complementizers.lex");
+    if(fileIn.fail())
+    {
+        std::cerr << "File not found : " << std::strerror(errno) << std::endl;
+        return false;
+    }
+    else
+    {
+        while(!fileIn.eof())
+        {
+            std::string str;
+            fileIn >> str;
+            
+            complementizers.insert(str);
+            
+        }
+        return true;
+    }
+}
 bool Lexicon::loadComplementRule()
 {
     std::ifstream fileIn("Resources/complement.psr");
@@ -88,4 +158,49 @@ bool Lexicon::loadComplementRule()
         return true;
     }
 }
+
+bool Lexicon::loadAdjunctRule()
+{
+    std::ifstream fileIn("Resources/adjunct.psr");
+    if(fileIn.fail())
+    {
+        std::cerr << "File not found : " << std::strerror(errno) << std::endl;
+        return false;
+    }
+    else
+    {
+        while(!fileIn.eof())
+        {
+            std::string left, right;
+            fileIn >> left >> right;
+            
+            adjunctRule.insert(std::make_pair(left, right));
+            
+        }
+        return true;
+    }
+}
+
+bool Lexicon::loadSpecRule()
+{
+    std::ifstream fileIn("Resources/spec.psr");
+    if(fileIn.fail())
+    {
+        std::cerr << "File not found : " << std::strerror(errno) << std::endl;
+        return false;
+    }
+    else
+    {
+        while(!fileIn.eof())
+        {
+            std::string left, right;
+            fileIn >> left >> right;
+            
+            specRule.insert(std::make_pair(left, right));
+            
+        }
+        return true;
+    }
+}
+
 

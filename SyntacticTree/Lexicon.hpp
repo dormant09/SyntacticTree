@@ -22,14 +22,19 @@ class Lexicon
     
     bool loadFiles();
     
-    std::set<std::string> nouns, postpositions;
-    std::set< std::pair<std::string, std::string> > complementRule;
+    std::set<std::string> nouns, postpositions, verbs, tenses, complementizers;
+    std::set< std::pair<std::string, std::string> > complementRule, adjunctRule, specRule;
     
     private :
     
     bool loadNounDictionary();
     bool loadPostpositionDictionary();
+    bool loadVerbDictionary();
+    bool loadTenseDictionary();
+    bool loadComplementizerDictionary();
     
     bool loadComplementRule();
+    bool loadAdjunctRule();
+    bool loadSpecRule();
 };
 #endif /* Lexicon_hpp */
