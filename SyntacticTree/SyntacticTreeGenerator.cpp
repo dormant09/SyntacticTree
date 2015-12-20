@@ -48,7 +48,7 @@ SyntacticTree SyntacticTreeGenerator::projectHead(SyntacticTree tree, Head* h)
     }
     
     //Adjunct
-    if(lastPhrase != NULL)
+    while(lastPhrase != NULL)
     {
         XBar* adjunctXbar = new XBar(xbar);
         std::pair< std::string, std::string > posPair;
@@ -63,6 +63,7 @@ SyntacticTree SyntacticTreeGenerator::projectHead(SyntacticTree tree, Head* h)
             
             xbar = adjunctXbar;
         }
+        else break;
     }
     
     
