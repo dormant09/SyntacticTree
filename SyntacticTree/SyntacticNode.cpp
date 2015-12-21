@@ -21,6 +21,8 @@ std::string SyntacticNode::makeAcronym(std::string pos)
     else if(pos == "Verb") return "V";
     else if(pos == "Noun") return "N";
     else if(pos == "Postposition") return "P";
+    else if(pos == "Adjective") return "Adj";
+    else if(pos == "Adverb") return "Adv";
     else return "X";
 }
 
