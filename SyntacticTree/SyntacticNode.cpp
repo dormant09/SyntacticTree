@@ -87,12 +87,12 @@ Head::Head(std::string str, std::string pos)
     {
         if(str == "은" || str == "는" || str == "ㄴ")
         {
-            conjugatable.insert(std::make_pair("Adjunct", "Verb"));
+            conjugatable.insert(std::make_pair("Complement", "Verb"));
             conjugatable.insert(std::make_pair("Spec", "Tense"));
         }
         else if(str == "을" || str == "를" || str == "ㄹ")
         {
-            conjugatable.insert(std::make_pair("Adjunct", "Verb"));
+            conjugatable.insert(std::make_pair("Complement", "Verb"));
         }
         else if(str == "이" || str == "가")
         {
@@ -101,6 +101,10 @@ Head::Head(std::string str, std::string pos)
         else if(str == "의")
         {
             conjugatable.insert(std::make_pair("Adjunct", "Noun"));
+        }
+        else
+        {
+            conjugatable.insert(std::make_pair("Adjunct", "Verb"));
         }
     }
     else if(pos == "Complementizer")

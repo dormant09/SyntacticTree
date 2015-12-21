@@ -31,6 +31,9 @@ SyntacticTree SyntacticTreeGenerator::projectHead(SyntacticTree tree, Head* h)
      
      나중에 함수로 따로 빼내서 XBar가 반복되는 경우를 처리
      complement를 취할 수 있어도, 취하지 않는 경우의 트리도 만들어야 함.
+     
+     tree에 Head stack이랑 xbar stack을 만들어서
+     tree를 복사해가면서 서로 다르게 projection시킨다.
      */
     //Complement
     if(lastPhrase != NULL)
@@ -175,8 +178,6 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::generatePartOfTrees(std::stri
                         newList.push_back(*tIter);
                     }
                 }
-                
-                return newList;
             }
             else if(lastCharacter == ".")
             {
@@ -187,21 +188,72 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::generatePartOfTrees(std::stri
                         newList.push_back(*tIter);
                     }
                 }
-                
-                return newList;
             }
+            else return oldList;
             
-            return oldList;
+            oldList.clear();
+            return newList;
             
         }
         
     }
     
 }
+std::vector<std::string> SyntacticTreeGenerator::normalize(std::string str)
+{
+    if(str.empty())
+    {
+        std::vector<std::string> initialList;
+        initialList.push_back(std::string());
+        return initialList;
+    }
+    else
+    {
+        std::vector<std::string> oldList, newList;
+        
+        std::string lastCharacter = Decoder::extractLastCharacter(str);
+        std::string remainder = Decoder::deleteLastCharacter(str);
+        
+        oldList = normalize(remainder);
+        
+        if(Decoder::isHangeul(lastCharacter[0]))
+        {
+            std::string coda = Decoder::extractCoda(lastCharacter);
+            
+            if((coda == "ㄴ") || (coda == "ㄹ") || (coda == "ㅂ") || (coda == "ㅆ"))
+            {
+              
+                for(std::vector<std::string>::iterator nIter = oldList.begin(); nIter != oldList.end(); nIter++)
+                {
+                    newList.push_back((*nIter) + Decoder::deleteCoda(lastCharacter) + coda);
+                }
+                
+            }
+            
+        }
+        
+        for(std::vector<std::string>::iterator nIter = oldList.begin(); nIter != oldList.end(); nIter++)
+        {
+            newList.push_back((*nIter) + lastCharacter);
+        }
+        
+        oldList.clear();
+        return newList;
+        
+    }
+}
 
 void SyntacticTreeGenerator::generateTrees(std::string str)
 {
-    trees = generatePartOfTrees(str);
+    std::vector<std::string> normalizedText = normalize(str);
+    
+    for(std::vector<std::string>::iterator nIter = normalizedText.begin(); nIter != normalizedText.end(); nIter++)
+    {
+        std::vector<SyntacticTree> taggedTree = generatePartOfTrees(*nIter);
+        
+        trees.insert(trees.end(), taggedTree.begin(), taggedTree.end());
+    }
+    
 }
 
 void SyntacticTreeGenerator::printTrees()

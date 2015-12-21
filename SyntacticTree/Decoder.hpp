@@ -25,7 +25,10 @@ class Decoder
     static const int HANGEUL_CODA_NUM = 28;
     
     static int decodeUnicode(std::string character);
+    static std::string encodeUnicode(int code);
     static bool endsWithCoda(std::string str);
+    static std::string deleteCoda(std::string str);
+    static std::string extractCoda(std::string str);
     static bool isHangeul(char initial);
     
     

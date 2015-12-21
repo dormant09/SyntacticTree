@@ -8,6 +8,43 @@
 
 #include "Decoder.hpp"
 
+std::string Decoder::encodeUnicode(int code)
+{
+    std::string character;
+    code += HANGEUL_INITIAL;
+    
+    char a, b, c;
+    
+    a = 224;
+    b = 128;
+    c = 128;
+    
+    
+    
+    for(int digit = 1; digit < 64; digit *= 2)
+    {
+        c += digit*(code % 2);
+        code /= 2;
+    }
+    
+    for(int digit = 1; digit < 64; digit *= 2)
+    {
+        b += digit*(code % 2);
+        code /= 2;
+    }
+    
+    for(int digit = 1; digit < 16; digit *= 2)
+    {
+        a += digit*(code % 2);
+        code /= 2;
+    }
+    
+    character += a;
+    character += b;
+    character += c;
+    
+    return character;
+}
 int Decoder::decodeUnicode(std::string character)
 {
     int pos = 0;
@@ -42,6 +79,48 @@ bool Decoder::endsWithCoda(std::string str)
     int pos = decodeUnicode( extractLastCharacter(str) );
     
     return (pos % HANGEUL_CODA_NUM != 0);
+}
+std::string Decoder::deleteCoda(std::string str)
+{
+    int pos = decodeUnicode( extractLastCharacter(str) );
+    pos -= pos % HANGEUL_CODA_NUM;
+    
+    return encodeUnicode(pos);
+}
+std::string Decoder::extractCoda(std::string str)
+{
+    int pos = decodeUnicode( extractLastCharacter(str) );
+    pos %= HANGEUL_CODA_NUM;
+    
+    if(pos == 1) return "ㄱ";
+    else if(pos == 2) return "ㄲ";
+    else if(pos == 3) return "ㄳ";
+    else if(pos == 4) return "ㄴ";
+    else if(pos == 5) return "ㄵ";
+    else if(pos == 6) return "ㄶ";
+    else if(pos == 7) return "ㄷ";
+    else if(pos == 8) return "ㄹ";
+    else if(pos == 9) return "ㄺ";
+    else if(pos == 10) return "ㄻ";
+    else if(pos == 11) return "ㄼ";
+    else if(pos == 12) return "ㄽ";
+    else if(pos == 13) return "ㄾ";
+    else if(pos == 14) return "ㄿ";
+    else if(pos == 15) return "ㅀ";
+    else if(pos == 16) return "ㅁ";
+    else if(pos == 17) return "ㅂ";
+    else if(pos == 18) return "ㅄ";
+    else if(pos == 19) return "ㅅ";
+    else if(pos == 20) return "ㅆ";
+    else if(pos == 21) return "ㅇ";
+    else if(pos == 22) return "ㅈ";
+    else if(pos == 23) return "ㅊ";
+    else if(pos == 24) return "ㅋ";
+    else if(pos == 25) return "ㅌ";
+    else if(pos == 26) return "ㅍ";
+    else if(pos == 27) return "ㅎ";
+    else return "";
+    
 }
 bool Decoder::isHangeul(char initial)
 {
