@@ -218,11 +218,11 @@ std::set< std::pair<std::string, std::string> > Lexicon::getConjugatablePair(std
         }
         else if(str == "을" || str == "를" || str == "ㄹ")
         {
-            conjugatable.insert(std::make_pair("Complement", "Tense"));
+            conjugatable.insert(std::make_pair("Complement", "Verb"));
         }
         else if(str == "이" || str == "가")
         {
-            conjugatable.insert(std::make_pair("Spec", "Verb"));
+            conjugatable.insert(std::make_pair("Spec", "Tense"));
         }
         else if(str == "의")
         {

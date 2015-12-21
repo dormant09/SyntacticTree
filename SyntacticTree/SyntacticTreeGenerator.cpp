@@ -126,15 +126,46 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
         trees.push_back(projectHead(tree, new Head(notTaggedWord, "Adverb")));
     }
     
+    
     /*
      trees를 돌면서
      \phi가 붙을 수 있는지를 검사
      붙을 수 있으면 붙은 것과 붙지 않은 것을 만든다.
      
      */
+    std::vector<SyntacticTree> phiAddedTrees;
+    for(std::vector<SyntacticTree>::iterator tIter = trees.begin(); tIter != trees.end(); tIter++)
+    {
+        std::vector<SyntacticTree> results = addPhiToTree(*tIter);
+        
+        phiAddedTrees.insert(phiAddedTrees.end(), results.begin(), results.end());
+    }
+    trees.insert(trees.end(), phiAddedTrees.begin(), phiAddedTrees.end());
+    
+    
     return trees;
 }
-
+std::vector<SyntacticTree> SyntacticTreeGenerator::addPhiToTree(SyntacticTree tree)
+{
+    std::vector<SyntacticTree> phiAddedTrees;
+    
+    if(tree.toBeDetermined.empty())
+    {
+        Phrase* lastPhrase;
+        if(!tree.phraseStack.empty())
+        {
+            lastPhrase = tree.phraseStack.back();
+            
+            if(lastPhrase->getPartOfSpeech() == "Verb")
+            {
+                phiAddedTrees.push_back(projectHead(tree, new Head("(+pres)", "Tense")));
+            }
+        }
+    }
+    
+    
+    return phiAddedTrees;
+}
 
 
 std::vector<SyntacticTree> SyntacticTreeGenerator::generatePartOfTrees(std::string str)
@@ -181,13 +212,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::generatePartOfTrees(std::stri
             }
             else if(lastCharacter == ".")
             {
-                for(std::vector<SyntacticTree>::iterator tIter = oldList.begin(); tIter != oldList.end(); tIter++)
-                {
-                    if(tIter->toBeDetermined.empty() && tIter->phraseStack.size() == 1)
-                    {
-                        newList.push_back(*tIter);
-                    }
-                }
+                
             }
             else return oldList;
             
@@ -251,7 +276,19 @@ void SyntacticTreeGenerator::generateTrees(std::string str)
     {
         std::vector<SyntacticTree> taggedTree = generatePartOfTrees(*nIter);
         
-        trees.insert(trees.end(), taggedTree.begin(), taggedTree.end());
+        
+        for(std::vector<SyntacticTree>::iterator tIter = taggedTree.begin(); tIter != taggedTree.end(); tIter++)
+        {
+            if(tIter->toBeDetermined.empty() && tIter->phraseStack.size() == 1)
+            {
+                Phrase* lastPhrase = tIter->phraseStack.back();
+                if(lastPhrase->getPartOfSpeech() == "Complementizer")
+                {
+                    trees.push_back(*tIter);
+                }
+                
+            }
+        }
     }
     
 }
