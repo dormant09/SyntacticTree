@@ -13,6 +13,8 @@
 #include <iostream>
 #include <set>
 
+#include "Lexicon.hpp"
+
 class SyntacticNode
 {
     public :

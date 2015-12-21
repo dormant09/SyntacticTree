@@ -180,5 +180,64 @@ bool Lexicon::loadAdverbDictionary()
     }
 }
 
-
+std::set< std::pair<std::string, std::string> > Lexicon::getConjugatablePair(std::string str, std::string pos)
+{
+    std::set< std::pair<std::string, std::string> > conjugatable;
+    
+    
+    if(pos == "Verb")
+    {
+        //VP는 T의 complemnt가 될 수 있음을 의미
+        conjugatable.insert(std::make_pair("Complement", "Tense"));
+    }
+    else if(pos == "Tense")
+    {
+        conjugatable.insert(std::make_pair("Complement", "Complementizer"));
+    }
+    else if(pos == "Noun")
+    {
+        conjugatable.insert(std::make_pair("Complement", "Postposition"));
+    }
+    else if(pos == "Adverb")
+    {
+        conjugatable.insert(std::make_pair("Adjunct", "Verb"));
+        conjugatable.insert(std::make_pair("Adjunct", "Adjective"));
+        conjugatable.insert(std::make_pair("Adjunct", "Tense"));
+        conjugatable.insert(std::make_pair("Adjunct", "Complemlentizer"));
+    }
+    else if(pos == "Adjective")
+    {
+        conjugatable.insert(std::make_pair("Adjunct", "Noun"));
+    }
+    else if(pos == "Postposition")
+    {
+        if(str == "은" || str == "는" || str == "ㄴ")
+        {
+            //conjugatable.insert(std::make_pair("Complement", "Verb"));
+            conjugatable.insert(std::make_pair("Spec", "Tense"));
+        }
+        else if(str == "을" || str == "를" || str == "ㄹ")
+        {
+            conjugatable.insert(std::make_pair("Complement", "Tense"));
+        }
+        else if(str == "이" || str == "가")
+        {
+            conjugatable.insert(std::make_pair("Spec", "Verb"));
+        }
+        else if(str == "의")
+        {
+            conjugatable.insert(std::make_pair("Adjunct", "Noun"));
+        }
+        else
+        {
+            conjugatable.insert(std::make_pair("Adjunct", "Verb"));
+        }
+    }
+    else if(pos == "Complementizer")
+    {
+        
+    }
+    
+    return conjugatable;
+}
 

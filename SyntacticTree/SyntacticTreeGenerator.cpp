@@ -258,9 +258,18 @@ void SyntacticTreeGenerator::generateTrees(std::string str)
 
 void SyntacticTreeGenerator::printTrees()
 {
-    for(std::vector<SyntacticTree>::iterator tIter = trees.begin(); tIter != trees.end(); tIter++)
+    if(trees.empty())
     {
-        tIter->printTree();
-        std::cout<<std::endl;
+        std::cout << "알맞은 통사 수형도를 찾을 수 없습니다." << std::endl;
     }
+    else
+    {
+        for(std::vector<SyntacticTree>::iterator tIter = trees.begin(); tIter != trees.end(); tIter++)
+        {
+            tIter->printTree();
+            std::cout<<std::endl;
+        }
+        
+    }
+    
 }
