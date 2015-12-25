@@ -144,9 +144,25 @@ std::string Decoder::decomposeSyllable(std::string str)
 }
 bool Decoder::isHangeul(std::string character)
 {
-    return isHangeul(character[0]);
+    if(is3bytesEncoded(character[0]))
+    {
+        int code = decodeUnicode(character) + HANGEUL_INITIAL;
+        
+        return (code >= HANGEUL_INITIAL) && (code <= HANGEUL_FINAL);
+    }
+    else return false;
 }
-bool Decoder::isHangeul(char initial)
+bool Decoder::isHangeulAlphabet(std::string character)
+{
+    if(is3bytesEncoded(character[0]))
+    {
+        int code = decodeUnicode(character) + HANGEUL_INITIAL;
+        
+        return (code >= HANGEUL_ALPHABET_INITIAL) && (code <= HANGEUL_ALPHABET_FINAL);
+    }
+    else return false;
+}
+bool Decoder::is3bytesEncoded(char initial)
 {
     //이진코드가 1110으로 시작하는지 확인
     return (initial & 0xF0) == 0xE0;
@@ -157,7 +173,7 @@ std::string Decoder::extractLastCharacter(std::string str)
 {
     std::string lastCharacter = "";
     
-    if(isHangeul(*(str.end() - 3)))
+    if(is3bytesEncoded(*(str.end() - 3)))
     {
         lastCharacter += *(str.end() - 3);
         lastCharacter += *(str.end() - 2);
@@ -175,7 +191,7 @@ std::string Decoder::deleteLastCharacter(std::string str)
 {
     std::string deletedStr;
     
-    if(isHangeul(*(str.end() - 3)))
+    if(is3bytesEncoded(*(str.end() - 3)))
     {
         deletedStr = str.substr(0, str.length() - 3);
     }

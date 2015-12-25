@@ -12,10 +12,9 @@
 int main(int argc, const char * argv[])
 {
     
-    std::cout << Decoder::decomposeSyllable("나는 사람이었다.") << std::endl;
-    //SyntacticTreeGenerator *stg = new SyntacticTreeGenerator();
-    //stg->generateTrees("나는 사람이었다.");
-    //stg->printTrees();
+    SyntacticTreeGenerator *stg = new SyntacticTreeGenerator();
+    stg->generateTrees("나는 사람입니다.");
+    stg->printTrees();
     
     return 0;
 }

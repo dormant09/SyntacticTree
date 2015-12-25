@@ -20,6 +20,9 @@ class Decoder
     static const int HANGEUL_INITIAL = 44032; //"가"의 UTF-8 코드의 십진수 값
     static const int HANGEUL_FINAL = 55203; //"힣"의 UTF-8 코드의 십진수 값
     
+    static const int HANGEUL_ALPHABET_INITIAL = 12593; //"ㄱ"의 UTF-8 코드의 십진수 값
+    static const int HANGEUL_ALPHABET_FINAL = 12622; //"ㅎ"의 UTF-8 코드의 십진수 값
+    
     static const int HANGEUL_ONSET_NUM = 19;
     static const int HANGEUL_NUCLEUS_NUM = 21;
     static const int HANGEUL_CODA_NUM = 28;
@@ -31,7 +34,8 @@ class Decoder
     static std::string extractCoda(std::string str);
     static std::string decomposeSyllable(std::string str);
     static bool isHangeul(std::string character);
-    static bool isHangeul(char initial);
+    static bool isHangeulAlphabet(std::string character);
+    static bool is3bytesEncoded(char initial);
     
     
     static std::string extractLastCharacter(std::string str);

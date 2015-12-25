@@ -138,7 +138,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
      
      */
     
-    /*
+    
     std::vector<SyntacticTree> phiAddedTrees;
     for(std::vector<SyntacticTree>::iterator tIter = trees.begin(); tIter != trees.end(); tIter++)
     {
@@ -147,7 +147,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
         phiAddedTrees.insert(phiAddedTrees.end(), results.begin(), results.end());
     }
     trees.insert(trees.end(), phiAddedTrees.begin(), phiAddedTrees.end());
-    */
+    
     
     return trees;
 }
@@ -162,7 +162,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addPhiToTree(SyntacticTree tr
         {
             lastPhrase = tree.phraseStack.back();
             
-            if(lastPhrase->getPartOfSpeech() == "Verb")
+            if(lastPhrase->getPartOfSpeech() == "Verb" || lastPhrase->getPartOfSpeech() == "Predicative")
             {
                 phiAddedTrees.push_back(projectHead(tree, new Head("(+pres)", "Tense")));
             }
@@ -189,7 +189,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::generatePartOfTrees(std::stri
         std::string lastCharacter = Decoder::extractLastCharacter(str);
         std::string remainder = Decoder::deleteLastCharacter(str);
         
-        if(Decoder::isHangeul(lastCharacter[0]))
+        if(Decoder::isHangeul(lastCharacter) || Decoder::isHangeulAlphabet(lastCharacter))
         {
             oldList = generatePartOfTrees(remainder);
             
@@ -215,10 +215,6 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::generatePartOfTrees(std::stri
                         newList.push_back(*tIter);
                     }
                 }
-            }
-            else if(lastCharacter == ".")
-            {
-                
             }
             else return oldList;
             
@@ -276,7 +272,8 @@ std::vector<std::string> SyntacticTreeGenerator::normalize(std::string str)
 
 void SyntacticTreeGenerator::generateTrees(std::string str)
 {
-    std::vector<std::string> normalizedText = normalize(str);
+    std::vector<std::string> normalizedText;// = normalize(str);
+    normalizedText.push_back(Decoder::decomposeSyllable(str));
     
     for(std::vector<std::string>::iterator nIter = normalizedText.begin(); nIter != normalizedText.end(); nIter++)
     {

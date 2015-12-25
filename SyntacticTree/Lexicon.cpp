@@ -42,7 +42,7 @@ bool Lexicon::loadPostpositionDictionary()
             std::string str;
             fileIn >> str;
             
-            postpositions.insert(str);
+            postpositions.insert(Decoder::decomposeSyllable(str));
             
         }
         return true;
@@ -64,7 +64,7 @@ bool Lexicon::loadNounDictionary()
             std::string str;
             fileIn >> str;
             
-            nouns.insert(str);
+            nouns.insert(Decoder::decomposeSyllable(str));
             
         }
         return true;
@@ -86,7 +86,7 @@ bool Lexicon::loadVerbDictionary()
             std::string str;
             fileIn >> str;
             
-            verbs.insert(str);
+            verbs.insert(Decoder::decomposeSyllable(str));
             
         }
         return true;
@@ -108,7 +108,7 @@ bool Lexicon::loadTenseDictionary()
             std::string str;
             fileIn >> str;
             
-            tenses.insert(str);
+            tenses.insert(Decoder::decomposeSyllable(str));
             
         }
         return true;
@@ -130,7 +130,7 @@ bool Lexicon::loadComplementizerDictionary()
             std::string str;
             fileIn >> str;
             
-            complementizers.insert(str);
+            complementizers.insert(Decoder::decomposeSyllable(str));
             
         }
         return true;
@@ -151,7 +151,7 @@ bool Lexicon::loadAdjectiveDictionary()
             std::string str;
             fileIn >> str;
             
-            adjectives.insert(str);
+            adjectives.insert(Decoder::decomposeSyllable(str));
             
         }
         return true;
@@ -173,7 +173,7 @@ bool Lexicon::loadAdverbDictionary()
             std::string str;
             fileIn >> str;
             
-            adverbs.insert(str);
+            adverbs.insert(Decoder::decomposeSyllable(str));
             
         }
         return true;
@@ -212,12 +212,12 @@ std::set< std::pair<std::string, std::string> > Lexicon::getConjugatablePair(std
     }
     else if(pos == "Postposition")
     {
-        if(str == "은" || str == "는" || str == "ㄴ")
+        if(str == "으ㄴ" || str == "느ㄴ" || str == "ㄴ")
         {
             //conjugatable.insert(std::make_pair("Complement", "Verb"));
             conjugatable.insert(std::make_pair("Spec", "Tense"));
         }
-        else if(str == "을" || str == "를" || str == "ㄹ")
+        else if(str == "으ㄹ" || str == "르ㄹ" || str == "ㄹ")
         {
             conjugatable.insert(std::make_pair("Complement", "Verb"));
         }

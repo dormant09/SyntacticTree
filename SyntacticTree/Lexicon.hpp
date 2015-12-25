@@ -13,6 +13,7 @@
 #include <fstream>
 #include <string>
 #include <set>
+#include "Decoder.hpp"
 
 class Lexicon
 {
