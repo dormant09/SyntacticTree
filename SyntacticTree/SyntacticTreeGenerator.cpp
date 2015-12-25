@@ -114,18 +114,6 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord, "Verb")));
     }
-    if(lexicon.verbs.find(notTaggedWord + "ㄹ다") != lexicon.verbs.end()) //TODO : 이부분은 normalize 부분으로...
-    {
-        trees.push_back(projectHead(tree, new Head(notTaggedWord + "ㄹ", "Verb")));
-    }
-    if(lexicon.verbs.find(notTaggedWord + "ㅅ다") != lexicon.verbs.end())
-    {
-        trees.push_back(projectHead(tree, new Head(notTaggedWord + "ㅅ", "Verb")));
-    }
-    if(lexicon.verbs.find(notTaggedWord + "ㅎ다") != lexicon.verbs.end())
-    {
-        trees.push_back(projectHead(tree, new Head(notTaggedWord + "ㅎ", "Verb")));
-    }
     
     
     if(lexicon.adjectives.find(notTaggedWord) != lexicon.adjectives.end())
@@ -143,7 +131,20 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
             Phrase* lastPhrase = tree.phraseStack.back();
             if(lastPhrase->getPartOfSpeech() == "Noun")
             {
-                trees.push_back(projectHead(tree, new Head(notTaggedWord, "Postposition")));
+                std::string lastCharacter = Decoder::extractLastCharacter(lastPhrase->getStr());
+                if(notTaggedWord == "으ㄴ" || notTaggedWord == "으ㄹ" || notTaggedWord == "으로" || notTaggedWord == "이")
+                {
+                    if(Decoder::isHangeulAlphabet(lastCharacter)) trees.push_back(projectHead(tree, new Head(notTaggedWord, "Postposition")));
+                }
+                else if(notTaggedWord == "느ㄴ" || notTaggedWord == "르ㄹ" || notTaggedWord == "가")
+                {
+                    if(!Decoder::isHangeulAlphabet(lastCharacter)) trees.push_back(projectHead(tree, new Head(notTaggedWord, "Postposition")));
+                }
+                else if(notTaggedWord == "로")
+                {
+                    if(lastCharacter == "ㄹ" || !Decoder::isHangeulAlphabet(lastCharacter)) trees.push_back(projectHead(tree, new Head(notTaggedWord, "Postposition")));
+                }
+                else trees.push_back(projectHead(tree, new Head(notTaggedWord, "Postposition")));
             }
         }
         
