@@ -122,6 +122,30 @@ std::string Decoder::extractCoda(std::string str)
     else return "";
     
 }
+std::string Decoder::decomposeSyllable(std::string str)
+{
+    if(str.empty()) return str;
+    
+    std::string lastSyllable = extractLastCharacter(str);
+    std::string result = decomposeSyllable(deleteLastCharacter(str));
+    
+    if(isHangeul(lastSyllable))
+    {
+        result += deleteCoda(lastSyllable);
+        result += extractCoda(lastSyllable);
+    }
+    else
+    {
+        result += lastSyllable;
+    }
+    
+    
+    return result;
+}
+bool Decoder::isHangeul(std::string character)
+{
+    return isHangeul(character[0]);
+}
 bool Decoder::isHangeul(char initial)
 {
     //이진코드가 1110으로 시작하는지 확인

@@ -125,6 +125,10 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord, "Adverb")));
     }
+    if(notTaggedWord == "이")
+    {
+        trees.push_back(projectHead(tree, new Head(notTaggedWord, "Predicative")));
+    }
     
     
     /*
@@ -133,6 +137,8 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
      붙을 수 있으면 붙은 것과 붙지 않은 것을 만든다.
      
      */
+    
+    /*
     std::vector<SyntacticTree> phiAddedTrees;
     for(std::vector<SyntacticTree>::iterator tIter = trees.begin(); tIter != trees.end(); tIter++)
     {
@@ -141,7 +147,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
         phiAddedTrees.insert(phiAddedTrees.end(), results.begin(), results.end());
     }
     trees.insert(trees.end(), phiAddedTrees.begin(), phiAddedTrees.end());
-    
+    */
     
     return trees;
 }
@@ -241,7 +247,7 @@ std::vector<std::string> SyntacticTreeGenerator::normalize(std::string str)
         
         oldList = normalize(remainder);
         
-        if(Decoder::isHangeul(lastCharacter[0]))
+        if(Decoder::isHangeul(lastCharacter))
         {
             std::string coda = Decoder::extractCoda(lastCharacter);
             

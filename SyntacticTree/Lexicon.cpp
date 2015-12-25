@@ -185,7 +185,7 @@ std::set< std::pair<std::string, std::string> > Lexicon::getConjugatablePair(std
     std::set< std::pair<std::string, std::string> > conjugatable;
     
     
-    if(pos == "Verb")
+    if(pos == "Verb" || pos == "Predicative")
     {
         //VP는 T의 complemnt가 될 수 있음을 의미
         conjugatable.insert(std::make_pair("Complement", "Tense"));
@@ -197,6 +197,7 @@ std::set< std::pair<std::string, std::string> > Lexicon::getConjugatablePair(std
     else if(pos == "Noun")
     {
         conjugatable.insert(std::make_pair("Complement", "Postposition"));
+        conjugatable.insert(std::make_pair("Complement", "Predicative"));
     }
     else if(pos == "Adverb")
     {
@@ -237,6 +238,7 @@ std::set< std::pair<std::string, std::string> > Lexicon::getConjugatablePair(std
     {
         
     }
+   
     
     return conjugatable;
 }

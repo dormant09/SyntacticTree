@@ -11,9 +11,11 @@
 
 int main(int argc, const char * argv[])
 {
-    SyntacticTreeGenerator *stg = new SyntacticTreeGenerator();
-    stg->generateTrees("소년은 개울가에서 소녀를 보자");
-    stg->printTrees();
+    
+    std::cout << Decoder::decomposeSyllable("나는 사람이었다.") << std::endl;
+    //SyntacticTreeGenerator *stg = new SyntacticTreeGenerator();
+    //stg->generateTrees("나는 사람이었다.");
+    //stg->printTrees();
     
     return 0;
 }

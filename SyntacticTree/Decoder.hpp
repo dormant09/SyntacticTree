@@ -29,6 +29,8 @@ class Decoder
     static bool endsWithCoda(std::string str);
     static std::string deleteCoda(std::string str);
     static std::string extractCoda(std::string str);
+    static std::string decomposeSyllable(std::string str);
+    static bool isHangeul(std::string character);
     static bool isHangeul(char initial);
     
     
