@@ -267,3 +267,122 @@ std::string Decoder::deleteLastCharacter(std::string str)
     
     return deletedStr;
 }
+std::vector<std::string> Decoder::normalize(std::string str)
+{
+    std::vector<std::string> result;
+    std::vector<std::string> normalized;
+    std::vector<std::string>::iterator nIter, cIter;
+    if(str.empty())
+    {
+        result.push_back(str);
+        return result;
+    }
+    else
+    {
+        std::string lastCharacter = extractLastCharacter(str);
+        std::string remainder = deleteLastCharacter(str);
+        if(isHangeulAlphabet(lastCharacter))
+        {
+            std::string lastLastCharacter = extractLastCharacter(remainder);
+            if((lastCharacter == "ㄴ") || (lastCharacter == "ㄹ"))
+            {
+                if(lastLastCharacter == "으")
+                {
+                    lastCharacter = lastLastCharacter + lastCharacter;
+                    remainder = deleteLastCharacter(remainder);
+                    lastLastCharacter = extractLastCharacter(remainder);
+                    normalized = normalize(remainder);
+                    
+                    for(nIter = normalized.begin(); nIter != normalized.end(); nIter++)
+                    {
+                        result.push_back(*nIter + lastCharacter);
+                        
+                        if(!isHangeulAlphabet(lastLastCharacter))
+                        {
+                            result.push_back(*nIter + "ㅅ" + lastCharacter);
+                            result.push_back(*nIter + "ㅎ" + lastCharacter);
+
+                        }
+                        
+                    }
+                    
+                    return result;
+                    
+                }
+                else if(lastLastCharacter == "느")
+                {
+                    lastCharacter = lastLastCharacter + lastCharacter;
+                    remainder = deleteLastCharacter(remainder);
+                    lastLastCharacter = extractLastCharacter(remainder);
+                    normalized = normalize(remainder);
+                    
+                    for(nIter = normalized.begin(); nIter != normalized.end(); nIter++)
+                    {
+                        result.push_back(*nIter + lastCharacter);
+                        if(!isHangeulAlphabet(lastLastCharacter))
+                        {
+                            result.push_back(*nIter + "ㄹ" + lastCharacter);
+                            
+                        }
+                        
+                    }
+                    return result;
+                }
+                else
+                {
+                    normalized = normalize(remainder);
+                    for(nIter = normalized.begin(); nIter != normalized.end(); nIter++)
+                    {
+                        result.push_back(*nIter + lastCharacter);
+                        if(!isHangeulAlphabet(lastLastCharacter))
+                        {
+                            result.push_back(*nIter + "ㄹ" + lastCharacter);
+                            
+                        }
+                        
+                    }
+                    return result;
+                }
+            }
+            
+            normalized = normalize(deleteLastCharacter(str));
+            for(nIter = normalized.begin(); nIter != normalized.end(); nIter++)
+            {
+                result.push_back(*nIter + lastCharacter);
+            }
+            
+    
+        }
+        else if(isHangeul(lastCharacter))
+        {
+            normalized = normalize(remainder);
+            std::vector<std::string> normalizedCharacter;
+            normalizedCharacter.push_back(lastCharacter);
+            
+            if(lastCharacter == "게") normalizedCharacter.push_back("것이");
+            else if(lastCharacter == "해") normalizedCharacter.push_back("하어");
+            else if(lastCharacter == "돼") normalizedCharacter.push_back("되어");
+            
+            for(nIter = normalized.begin(); nIter != normalized.end(); nIter++)
+            {
+                for(cIter = normalizedCharacter.begin(); cIter != normalizedCharacter.end(); cIter++)
+                {
+                    result.push_back((*nIter) + (*cIter));
+                }
+            }
+            
+        }
+        else
+        {
+            normalized = normalize(deleteLastCharacter(str));
+            for(nIter = normalized.begin(); nIter != normalized.end(); nIter++)
+            {
+                result.push_back(*nIter + lastCharacter);
+            }
+            
+        }
+        
+        
+        return result;
+    }
+}

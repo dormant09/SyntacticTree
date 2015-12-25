@@ -10,6 +10,7 @@
 #define Decoder_hpp
 
 #include <string>
+#include <vector>
 
 
 
@@ -46,6 +47,8 @@ class Decoder
     
     static std::string extractLastCharacter(std::string str);
     static std::string deleteLastCharacter(std::string str);
+    
+    static std::vector<std::string> normalize(std::string str);
 };
 
 

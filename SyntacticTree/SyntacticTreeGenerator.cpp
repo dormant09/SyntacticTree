@@ -48,6 +48,8 @@ SyntacticTree SyntacticTreeGenerator::projectHead(SyntacticTree tree, Head* h)
         }
     }
     
+    //pair(tree, xbar)를 가지고 만들어보자
+    
     //Adjunct
     while(lastPhrase != NULL)
     {
@@ -65,7 +67,7 @@ SyntacticTree SyntacticTreeGenerator::projectHead(SyntacticTree tree, Head* h)
         else break;
     }
     
-    
+    //여기서도 pair(tree, xbar)
     
     //Phrase Projection
     Phrase* phrase = new Phrase(xbar);
@@ -82,6 +84,8 @@ SyntacticTree SyntacticTreeGenerator::projectHead(SyntacticTree tree, Head* h)
             else lastPhrase = addedTree.phraseStack.back();
         }
     }
+    
+    //pair(tree, phrase) -> phrase를 tree에 넣음.
     
     addedTree.phraseStack.push_back(phrase);
     
@@ -349,8 +353,8 @@ std::vector<std::string> SyntacticTreeGenerator::normalize(std::string str)
 
 void SyntacticTreeGenerator::generateTrees(std::string str)
 {
-    std::vector<std::string> normalizedText;// = normalize(str);
-    normalizedText.push_back(Decoder::decomposeSyllable(str));
+    std::vector<std::string> normalizedText = Decoder::normalize(Decoder::decomposeSyllable(str));
+    //normalizedText.push_back(Decoder::decomposeSyllable(str));
     
     for(std::vector<std::string>::iterator nIter = normalizedText.begin(); nIter != normalizedText.end(); nIter++)
     {
