@@ -30,7 +30,7 @@ bool Lexicon::loadFiles()
 }
 bool Lexicon::loadPostpositionDictionary()
 {
-    std::ifstream fileIn("Resources/postpositions.lex");
+    std::ifstream fileIn(RESOURCE_PATH + "postpositions.lex");
     if(fileIn.fail())
     {
         std::cerr << "File not found : " << std::strerror(errno) << std::endl;
@@ -52,7 +52,7 @@ bool Lexicon::loadPostpositionDictionary()
 
 bool Lexicon::loadNounDictionary()
 {
-    std::ifstream fileIn("Resources/nouns.lex");
+    std::ifstream fileIn(RESOURCE_PATH + "nouns.lex");
     if(fileIn.fail())
     {
         std::cerr << "File not found : " << std::strerror(errno) << std::endl;
@@ -74,7 +74,7 @@ bool Lexicon::loadNounDictionary()
 
 bool Lexicon::loadVerbDictionary()
 {
-    std::ifstream fileIn("Resources/verbs.lex");
+    std::ifstream fileIn(RESOURCE_PATH + "verbs.lex");
     if(fileIn.fail())
     {
         std::cerr << "File not found : " << std::strerror(errno) << std::endl;
@@ -96,7 +96,7 @@ bool Lexicon::loadVerbDictionary()
 
 bool Lexicon::loadTenseDictionary()
 {
-    std::ifstream fileIn("Resources/tenses.lex");
+    std::ifstream fileIn(RESOURCE_PATH + "tenses.lex");
     if(fileIn.fail())
     {
         std::cerr << "File not found : " << std::strerror(errno) << std::endl;
@@ -118,7 +118,7 @@ bool Lexicon::loadTenseDictionary()
 
 bool Lexicon::loadComplementizerDictionary()
 {
-    std::ifstream fileIn("Resources/complementizers.lex");
+    std::ifstream fileIn(RESOURCE_PATH + "complementizers.lex");
     if(fileIn.fail())
     {
         std::cerr << "File not found : " << std::strerror(errno) << std::endl;
@@ -139,7 +139,7 @@ bool Lexicon::loadComplementizerDictionary()
 }
 bool Lexicon::loadAdjectiveDictionary()
 {
-    std::ifstream fileIn("Resources/adjectives.lex");
+    std::ifstream fileIn(RESOURCE_PATH + "adjectives.lex");
     if(fileIn.fail())
     {
         std::cerr << "File not found : " << std::strerror(errno) << std::endl;
@@ -161,7 +161,7 @@ bool Lexicon::loadAdjectiveDictionary()
 
 bool Lexicon::loadAdverbDictionary()
 {
-    std::ifstream fileIn("Resources/adverbs.lex");
+    std::ifstream fileIn(RESOURCE_PATH + "adverbs.lex");
     if(fileIn.fail())
     {
         std::cerr << "File not found : " << std::strerror(errno) << std::endl;
@@ -183,7 +183,7 @@ bool Lexicon::loadAdverbDictionary()
 
 bool Lexicon::loadMoodDictionary()
 {
-    std::ifstream fileIn("Resources/moods.lex");
+    std::ifstream fileIn(RESOURCE_PATH + "moods.lex");
     if(fileIn.fail())
     {
         std::cerr << "File not found : " << std::strerror(errno) << std::endl;

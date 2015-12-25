@@ -15,11 +15,14 @@
 #include <set>
 #include "Decoder.hpp"
 
+static const std::string RESOURCE_PATH = "Resources/";
+
 class Lexicon
 {
     public :
     
     Lexicon();
+    
     
     bool loadFiles();
     static std::set< std::pair<std::string, std::string> > getConjugatablePair(std::string str, std::string pos);
@@ -28,6 +31,9 @@ class Lexicon
     
     
     private :
+    
+    
+    
     
     bool loadNounDictionary();
     bool loadPostpositionDictionary();
