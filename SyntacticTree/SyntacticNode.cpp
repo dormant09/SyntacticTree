@@ -16,7 +16,7 @@ SyntacticNode::SyntacticNode()
 
 std::string SyntacticNode::makeAcronym(std::string pos)
 {
-    if(pos == "Complementizer") return "C";
+    if(pos == "Complementizer" || pos == "Relative") return "C";
     else if(pos == "Tense") return "T";
     else if(pos == "Verb" || pos == "Predicative") return "V";
     else if(pos == "Noun") return "N";

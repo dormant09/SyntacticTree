@@ -337,6 +337,7 @@ std::vector<std::string> Decoder::normalize(std::string str)
                         if(!isHangeulAlphabet(lastLastCharacter))
                         {
                             result.push_back(*nIter + "ㄹ" + lastCharacter);
+                            if(lastCharacter == "ㄹ") result.push_back(*nIter + "ㄷ");
                             
                         }
                         
@@ -344,6 +345,7 @@ std::vector<std::string> Decoder::normalize(std::string str)
                     return result;
                 }
             }
+           
             
             normalized = normalize(deleteLastCharacter(str));
             for(nIter = normalized.begin(); nIter != normalized.end(); nIter++)
@@ -362,6 +364,10 @@ std::vector<std::string> Decoder::normalize(std::string str)
             if(lastCharacter == "게") normalizedCharacter.push_back("것이");
             else if(lastCharacter == "해") normalizedCharacter.push_back("하어");
             else if(lastCharacter == "돼") normalizedCharacter.push_back("되어");
+            else if(lastCharacter == "내") normalizedCharacter.push_back("나");
+            else if(lastCharacter == "네") normalizedCharacter.push_back("너");
+            else if(lastCharacter == "제") normalizedCharacter.push_back("저");
+            else if(lastCharacter == "와" || lastCharacter == "워") normalizedCharacter.push_back("ㅂ어");
             
             for(nIter = normalized.begin(); nIter != normalized.end(); nIter++)
             {

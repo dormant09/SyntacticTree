@@ -260,22 +260,29 @@ std::set< std::pair<std::string, std::string> > Lexicon::getConjugatablePair(std
     }
     else if(pos == "Mood")
     {
-        conjugatable.insert(std::make_pair("Complement", "Complementizer"));
+        if(str == "Ø" || str == "다" || str == "라") conjugatable.insert(std::make_pair("Complement", "Relative"));
         
+        if(str != "Ø") conjugatable.insert(std::make_pair("Complement", "Complementizer"));
+
     }
     else if(pos == "Complementizer")
     {
+        /*
         if(str == "느ㄴ" || str == "Ø")
         {
             conjugatable.insert(std::make_pair("Adjunct", "Noun"));
         }
+         
     
-        else conjugatable.insert(std::make_pair("Adjunct", "Complementizer"));
+        else */conjugatable.insert(std::make_pair("Adjunct", "Complementizer"));
         
-        
+        if(str == "고") conjugatable.insert(std::make_pair("Complement", "Verb"));
         
     }
-    
+    else if(pos == "Relative")
+    {
+        conjugatable.insert(std::make_pair("Adjunct", "Noun"));
+    }
    
     
     return conjugatable;

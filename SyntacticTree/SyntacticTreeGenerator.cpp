@@ -167,7 +167,8 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
             Phrase* lastPhrase = tree.phraseStack.back();
             if(lastPhrase->getPartOfSpeech() == "Mood")
             {
-                trees.push_back(projectHead(tree, new Head(notTaggedWord, "Complementizer")));
+                if(notTaggedWord == "느ㄴ") trees.push_back(projectHead(tree, new Head(notTaggedWord, "Relative")));
+                else trees.push_back(projectHead(tree, new Head(notTaggedWord, "Complementizer")));
             }
         }
     }
@@ -187,7 +188,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
     
     /*
      trees를 돌면서
-     \phi가 붙을 수 있는지를 검사
+     Ø가 붙을 수 있는지를 검사
      붙을 수 있으면 붙은 것과 붙지 않은 것을 만든다.
      
      */
@@ -231,8 +232,8 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addPhiToTree(SyntacticTree tr
             }
             if(lastPhrase->getPartOfSpeech() == "Mood")
             {
-                
                 phiAddedTrees.push_back(projectHead(tree, new Head("Ø", "Complementizer")));
+                phiAddedTrees.push_back(projectHead(tree, new Head("Ø", "Relative")));
             }
         }
     }
