@@ -87,39 +87,75 @@ std::string Decoder::deleteCoda(std::string str)
     
     return encodeUnicode(pos);
 }
+std::string Decoder::getCodaFromCode(int code)
+{
+    if(code == 1) return "ㄱ";
+    else if(code == 2) return "ㄲ";
+    else if(code == 3) return "ㄳ";
+    else if(code == 4) return "ㄴ";
+    else if(code == 5) return "ㄵ";
+    else if(code == 6) return "ㄶ";
+    else if(code == 7) return "ㄷ";
+    else if(code == 8) return "ㄹ";
+    else if(code == 9) return "ㄺ";
+    else if(code == 10) return "ㄻ";
+    else if(code == 11) return "ㄼ";
+    else if(code == 12) return "ㄽ";
+    else if(code == 13) return "ㄾ";
+    else if(code == 14) return "ㄿ";
+    else if(code == 15) return "ㅀ";
+    else if(code == 16) return "ㅁ";
+    else if(code == 17) return "ㅂ";
+    else if(code == 18) return "ㅄ";
+    else if(code == 19) return "ㅅ";
+    else if(code == 20) return "ㅆ";
+    else if(code == 21) return "ㅇ";
+    else if(code == 22) return "ㅈ";
+    else if(code == 23) return "ㅊ";
+    else if(code == 24) return "ㅋ";
+    else if(code == 25) return "ㅌ";
+    else if(code == 26) return "ㅍ";
+    else if(code == 27) return "ㅎ";
+    else return "";
+}
+int Decoder::getCodeFromCoda(std::string coda)
+{
+    if(coda == "ㄱ") return 1;
+    else if(coda == "ㄲ") return 2;
+    else if(coda == "ㄳ") return 3;
+    else if(coda == "ㄴ") return 4;
+    else if(coda == "ㄵ") return 5;
+    else if(coda == "ㄶ") return 6;
+    else if(coda == "ㄷ") return 7;
+    else if(coda == "ㄹ") return 8;
+    else if(coda == "ㄺ") return 9;
+    else if(coda == "ㄻ") return 10;
+    else if(coda == "ㄼ") return 11;
+    else if(coda == "ㄽ") return 12;
+    else if(coda == "ㄾ") return 13;
+    else if(coda == "ㄿ") return 14;
+    else if(coda == "ㅀ") return 15;
+    else if(coda == "ㅁ") return 16;
+    else if(coda == "ㅂ") return 17;
+    else if(coda == "ㅄ") return 18;
+    else if(coda == "ㅅ") return 19;
+    else if(coda == "ㅆ") return 20;
+    else if(coda == "ㅇ") return 21;
+    else if(coda == "ㅈ") return 22;
+    else if(coda == "ㅊ") return 23;
+    else if(coda == "ㅋ") return 24;
+    else if(coda == "ㅌ") return 25;
+    else if(coda == "ㅍ") return 26;
+    else if(coda == "ㅎ") return 27;
+    else return 0;
+}
 std::string Decoder::extractCoda(std::string str)
 {
     int pos = decodeUnicode( extractLastCharacter(str) );
     pos %= HANGEUL_CODA_NUM;
     
-    if(pos == 1) return "ㄱ";
-    else if(pos == 2) return "ㄲ";
-    else if(pos == 3) return "ㄳ";
-    else if(pos == 4) return "ㄴ";
-    else if(pos == 5) return "ㄵ";
-    else if(pos == 6) return "ㄶ";
-    else if(pos == 7) return "ㄷ";
-    else if(pos == 8) return "ㄹ";
-    else if(pos == 9) return "ㄺ";
-    else if(pos == 10) return "ㄻ";
-    else if(pos == 11) return "ㄼ";
-    else if(pos == 12) return "ㄽ";
-    else if(pos == 13) return "ㄾ";
-    else if(pos == 14) return "ㄿ";
-    else if(pos == 15) return "ㅀ";
-    else if(pos == 16) return "ㅁ";
-    else if(pos == 17) return "ㅂ";
-    else if(pos == 18) return "ㅄ";
-    else if(pos == 19) return "ㅅ";
-    else if(pos == 20) return "ㅆ";
-    else if(pos == 21) return "ㅇ";
-    else if(pos == 22) return "ㅈ";
-    else if(pos == 23) return "ㅊ";
-    else if(pos == 24) return "ㅋ";
-    else if(pos == 25) return "ㅌ";
-    else if(pos == 26) return "ㅍ";
-    else if(pos == 27) return "ㅎ";
-    else return "";
+    if(pos == 0) return "";
+    else return getCodaFromCode(pos);
     
 }
 std::string Decoder::decomposeSyllable(std::string str)
@@ -141,6 +177,35 @@ std::string Decoder::decomposeSyllable(std::string str)
     
     
     return result;
+}
+std::string Decoder::composeSyllable(std::string str)
+{
+    if(str.empty()) return str;
+    
+    std::string lastCharacter = extractLastCharacter(str);
+    std::string remainder = deleteLastCharacter(str);
+    
+    if(isHangeulAlphabet(lastCharacter))
+    {
+        if(remainder.empty())
+        {
+            return lastCharacter;
+        }
+        else
+        {
+            std::string lastLastCharacter = extractLastCharacter(remainder);
+            remainder = deleteLastCharacter(remainder);
+            
+            return composeSyllable(remainder) + encodeUnicode(decodeUnicode(lastLastCharacter) + getCodeFromCoda(lastCharacter));
+            
+        }
+    }
+    else
+    {
+        return composeSyllable(remainder) + lastCharacter;
+    }
+    
+    
 }
 bool Decoder::isHangeul(std::string character)
 {

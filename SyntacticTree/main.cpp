@@ -11,9 +11,9 @@
 
 int main(int argc, const char * argv[])
 {
-    
+
     SyntacticTreeGenerator *stg = new SyntacticTreeGenerator();
-    stg->generateTrees("나는 책상이라는 걸 먹을 수가 있었다");
+    stg->generateTrees("나는 밥을 먹는다");
     stg->printTrees();
     
     return 0;

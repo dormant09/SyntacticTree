@@ -140,7 +140,7 @@ bool XBar::find(std::pair<std::string, std::string> pair)
 
 void Head::print()
 {
-    std::cout << "[" << makeAcronym(getPartOfSpeech()) << " " << str << "]";
+    std::cout << "[" << makeAcronym(getPartOfSpeech()) << " " << Decoder::composeSyllable(str) << "]";
 }
 std::string Head::getPartOfSpeech()
 {
