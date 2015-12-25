@@ -13,7 +13,7 @@ int main(int argc, const char * argv[])
 {
     
     SyntacticTreeGenerator *stg = new SyntacticTreeGenerator();
-    stg->generateTrees("나는 사람입니다.");
+    stg->generateTrees("나는 밥을 먹었습니다.");
     stg->printTrees();
     
     return 0;

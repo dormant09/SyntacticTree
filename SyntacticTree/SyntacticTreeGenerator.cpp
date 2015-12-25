@@ -97,25 +97,17 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
     std::string notTaggedWord = trees.back().toBeDetermined;
     
     
+    if(notTaggedWord == "이") //서술격조사
+    {
+        trees.push_back(projectHead(tree, new Head(notTaggedWord, "Predicative")));
+    }
     if(lexicon.nouns.find(notTaggedWord) != lexicon.nouns.end())
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord, "Noun")));
     }
-    if(lexicon.postpositions.find(notTaggedWord) != lexicon.postpositions.end())
-    {
-        trees.push_back(projectHead(tree, new Head(notTaggedWord, "Postposition")));
-    }
     if(lexicon.verbs.find(notTaggedWord + "다") != lexicon.verbs.end())
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord, "Verb")));
-    }
-    if(lexicon.tenses.find(notTaggedWord) != lexicon.tenses.end())
-    {
-        trees.push_back(projectHead(tree, new Head(notTaggedWord, "Tense")));
-    }
-    if(lexicon.complementizers.find(notTaggedWord) != lexicon.complementizers.end())
-    {
-        trees.push_back(projectHead(tree, new Head(notTaggedWord, "Complementizer")));
     }
     if(lexicon.adjectives.find(notTaggedWord) != lexicon.adjectives.end())
     {
@@ -125,14 +117,52 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord, "Adverb")));
     }
+    if(lexicon.postpositions.find(notTaggedWord) != lexicon.postpositions.end())
+    {
+        if(!tree.phraseStack.empty())
+        {
+            Phrase* lastPhrase = tree.phraseStack.back();
+            if(lastPhrase->getPartOfSpeech() == "Noun")
+            {
+                trees.push_back(projectHead(tree, new Head(notTaggedWord, "Postposition")));
+            }
+        }
+        
+    }
+    if(lexicon.tenses.find(notTaggedWord) != lexicon.tenses.end())
+    {
+        if(!tree.phraseStack.empty())
+        {
+            Phrase* lastPhrase = tree.phraseStack.back();
+            if(lastPhrase->getPartOfSpeech() == "Verb" || lastPhrase->getPartOfSpeech() == "Predicative")
+            {
+                trees.push_back(projectHead(tree, new Head(notTaggedWord, "Tense")));
+            }
+        }
+    }
+    if(lexicon.complementizers.find(notTaggedWord) != lexicon.complementizers.end())
+    {
+        if(!tree.phraseStack.empty())
+        {
+            Phrase* lastPhrase = tree.phraseStack.back();
+            if(lastPhrase->getPartOfSpeech() == "Mood")
+            {
+                trees.push_back(projectHead(tree, new Head(notTaggedWord, "Complementizer")));
+            }
+        }
+    }
     if(lexicon.moods.find(notTaggedWord) != lexicon.moods.end())
     {
-        trees.push_back(projectHead(tree, new Head(notTaggedWord, "Mood")));
+        if(!tree.phraseStack.empty())
+        {
+            Phrase* lastPhrase = tree.phraseStack.back();
+            if(lastPhrase->getPartOfSpeech() == "Tense")
+            {
+                trees.push_back(projectHead(tree, new Head(notTaggedWord, "Mood")));
+            }
+        }
     }
-    if(notTaggedWord == "이") //서술격조사
-    {
-        trees.push_back(projectHead(tree, new Head(notTaggedWord, "Predicative")));
-    }
+    
     
     
     /*
@@ -144,6 +174,7 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
     
     
     std::vector<SyntacticTree> phiAddedTrees;
+    
     for(std::vector<SyntacticTree>::iterator tIter = trees.begin(); tIter != trees.end(); tIter++)
     {
         std::vector<SyntacticTree> results = addPhiToTree(*tIter);
@@ -170,7 +201,10 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addPhiToTree(SyntacticTree tr
             {
                 phiAddedTrees.push_back(projectHead(tree, new Head("Ø", "Tense")));
             }
-            
+            if(lastPhrase->getPartOfSpeech() == "Tense")
+            {
+                phiAddedTrees.push_back(projectHead(tree, new Head("Ø", "Mood")));
+            }
             if(lastPhrase->getPartOfSpeech() == "Mood")
             {
                 phiAddedTrees.push_back(projectHead(tree, new Head("Ø", "Complementizer")));
@@ -178,6 +212,15 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addPhiToTree(SyntacticTree tr
         }
     }
     
+    std::vector<SyntacticTree> phiAddedTreesRec;
+    for(std::vector<SyntacticTree>::iterator tIter = phiAddedTrees.begin(); tIter != phiAddedTrees.end(); tIter++)
+    {
+        std::vector<SyntacticTree> result = addPhiToTree(*tIter);
+        phiAddedTreesRec.insert(phiAddedTreesRec.end(), result.begin(), result.end());
+    }
+    
+    
+    phiAddedTrees.insert(phiAddedTrees.begin(), phiAddedTreesRec.begin(), phiAddedTreesRec.end());
     
     return phiAddedTrees;
 }
