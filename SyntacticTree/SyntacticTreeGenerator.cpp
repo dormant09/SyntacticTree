@@ -125,7 +125,11 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord, "Adverb")));
     }
-    if(notTaggedWord == "이")
+    if(lexicon.moods.find(notTaggedWord) != lexicon.moods.end())
+    {
+        trees.push_back(projectHead(tree, new Head(notTaggedWord, "Mood")));
+    }
+    if(notTaggedWord == "이") //서술격조사
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord, "Predicative")));
     }
@@ -164,7 +168,12 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addPhiToTree(SyntacticTree tr
             
             if(lastPhrase->getPartOfSpeech() == "Verb" || lastPhrase->getPartOfSpeech() == "Predicative")
             {
-                phiAddedTrees.push_back(projectHead(tree, new Head("(+pres)", "Tense")));
+                phiAddedTrees.push_back(projectHead(tree, new Head("Ø", "Tense")));
+            }
+            
+            if(lastPhrase->getPartOfSpeech() == "Mood")
+            {
+                phiAddedTrees.push_back(projectHead(tree, new Head("Ø", "Complementizer")));
             }
         }
     }

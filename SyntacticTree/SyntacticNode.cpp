@@ -23,6 +23,7 @@ std::string SyntacticNode::makeAcronym(std::string pos)
     else if(pos == "Postposition") return "P";
     else if(pos == "Adjective") return "Adj";
     else if(pos == "Adverb") return "Adv";
+    else if(pos == "Mood") return "M";
     else return "X";
 }
 

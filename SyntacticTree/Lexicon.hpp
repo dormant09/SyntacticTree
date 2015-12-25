@@ -24,7 +24,7 @@ class Lexicon
     bool loadFiles();
     static std::set< std::pair<std::string, std::string> > getConjugatablePair(std::string str, std::string pos);
     
-    std::set<std::string> nouns, postpositions, verbs, tenses, complementizers, adverbs, adjectives;
+    std::set<std::string> nouns, postpositions, verbs, tenses, complementizers, adverbs, adjectives, moods;
     
     
     private :
@@ -36,6 +36,6 @@ class Lexicon
     bool loadComplementizerDictionary();
     bool loadAdverbDictionary();
     bool loadAdjectiveDictionary();
-    
+    bool loadMoodDictionary();
 };
 #endif /* Lexicon_hpp */

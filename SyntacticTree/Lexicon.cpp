@@ -23,6 +23,7 @@ bool Lexicon::loadFiles()
     if(!loadComplementizerDictionary()) return false;
     if(!loadAdjectiveDictionary()) return false;
     if(!loadAdverbDictionary()) return false;
+    if(!loadMoodDictionary()) return false;
     
 
     return true;
@@ -180,6 +181,28 @@ bool Lexicon::loadAdverbDictionary()
     }
 }
 
+bool Lexicon::loadMoodDictionary()
+{
+    std::ifstream fileIn("Resources/moods.lex");
+    if(fileIn.fail())
+    {
+        std::cerr << "File not found : " << std::strerror(errno) << std::endl;
+        return false;
+    }
+    else
+    {
+        while(!fileIn.eof())
+        {
+            std::string str;
+            fileIn >> str;
+            
+            moods.insert(Decoder::decomposeSyllable(str));
+            
+        }
+        return true;
+    }
+}
+
 std::set< std::pair<std::string, std::string> > Lexicon::getConjugatablePair(std::string str, std::string pos)
 {
     std::set< std::pair<std::string, std::string> > conjugatable;
@@ -192,7 +215,7 @@ std::set< std::pair<std::string, std::string> > Lexicon::getConjugatablePair(std
     }
     else if(pos == "Tense")
     {
-        conjugatable.insert(std::make_pair("Complement", "Complementizer"));
+        conjugatable.insert(std::make_pair("Complement", "Mood"));
     }
     else if(pos == "Noun")
     {
@@ -204,6 +227,7 @@ std::set< std::pair<std::string, std::string> > Lexicon::getConjugatablePair(std
         conjugatable.insert(std::make_pair("Adjunct", "Verb"));
         conjugatable.insert(std::make_pair("Adjunct", "Adjective"));
         conjugatable.insert(std::make_pair("Adjunct", "Tense"));
+        conjugatable.insert(std::make_pair("Adjunct", "Mood"));
         conjugatable.insert(std::make_pair("Adjunct", "Complemlentizer"));
     }
     else if(pos == "Adjective")
@@ -234,10 +258,16 @@ std::set< std::pair<std::string, std::string> > Lexicon::getConjugatablePair(std
             conjugatable.insert(std::make_pair("Adjunct", "Verb"));
         }
     }
-    else if(pos == "Complementizer")
+    else if(pos == "Mood")
     {
+        conjugatable.insert(std::make_pair("Complement", "Complementizer"));
         
     }
+    else if(pos == "Complementizer")
+    {
+        conjugatable.insert(std::make_pair("Adjunct", "Complementizer"));
+    }
+    
    
     
     return conjugatable;
