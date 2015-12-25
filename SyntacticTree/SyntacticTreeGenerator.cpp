@@ -105,10 +105,25 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord, "Noun")));
     }
+    
     if(lexicon.verbs.find(notTaggedWord + "다") != lexicon.verbs.end())
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord, "Verb")));
     }
+    else if(lexicon.verbs.find(notTaggedWord + "ㄹ다") != lexicon.verbs.end())
+    {
+        trees.push_back(projectHead(tree, new Head(notTaggedWord + "ㄹ", "Verb")));
+    }
+    else if(lexicon.verbs.find(notTaggedWord + "ㅅ다") != lexicon.verbs.end())
+    {
+        trees.push_back(projectHead(tree, new Head(notTaggedWord + "ㅅ", "Verb")));
+    }
+    else if(lexicon.verbs.find(notTaggedWord + "ㅎ다") != lexicon.verbs.end())
+    {
+        trees.push_back(projectHead(tree, new Head(notTaggedWord + "ㅎ", "Verb")));
+    }
+    
+    
     if(lexicon.adjectives.find(notTaggedWord) != lexicon.adjectives.end())
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord, "Adjective")));
@@ -359,7 +374,7 @@ void SyntacticTreeGenerator::printTrees()
         for(std::vector<SyntacticTree>::iterator tIter = trees.begin(); tIter != trees.end(); tIter++)
         {
             tIter->printTree();
-            std::cout<<std::endl;
+            std::cout << std::endl << std::endl;
         }
         
     }

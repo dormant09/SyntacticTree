@@ -265,14 +265,12 @@ std::set< std::pair<std::string, std::string> > Lexicon::getConjugatablePair(std
     }
     else if(pos == "Complementizer")
     {
-        if(str == "Ø")
+        if(str == "느ㄴ" || str == "Ø")
         {
             conjugatable.insert(std::make_pair("Adjunct", "Noun"));
         }
-        else
-        {
-            conjugatable.insert(std::make_pair("Adjunct", "Complementizer"));
-        }
+        else conjugatable.insert(std::make_pair("Adjunct", "Complementizer"));
+        
         
         
     }
