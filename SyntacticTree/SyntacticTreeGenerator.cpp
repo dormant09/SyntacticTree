@@ -167,7 +167,10 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
             Phrase* lastPhrase = tree.phraseStack.back();
             if(lastPhrase->getPartOfSpeech() == "Mood")
             {
-                if(notTaggedWord == "느ㄴ") trees.push_back(projectHead(tree, new Head(notTaggedWord, "Relative")));
+                if(notTaggedWord == "느ㄴ")
+                {
+                    if(lastPhrase->getStr() == "다" || lastPhrase->getStr() == "라") trees.push_back(projectHead(tree, new Head(notTaggedWord, "Relative")));
+                }
                 else trees.push_back(projectHead(tree, new Head(notTaggedWord, "Complementizer")));
             }
         }
