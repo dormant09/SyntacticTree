@@ -90,6 +90,11 @@ std::string Phrase::getPartOfSpeech()
     if(xbarChild != NULL) return xbarChild->getPartOfSpeech();
     else return "";
 }
+std::string Phrase::getStr()
+{
+    if(xbarChild != NULL) return xbarChild->getStr();
+    else return "";
+}
 bool Phrase::find(std::pair<std::string, std::string> pair)
 {
     if(xbarChild != NULL) return xbarChild->find(pair);
@@ -129,6 +134,12 @@ std::string XBar::getPartOfSpeech()
     else if(xbarChild != NULL) return xbarChild->getPartOfSpeech();
     else return "";
 }
+std::string XBar::getStr()
+{
+    if(headChild != NULL) return headChild->getStr();
+    else if(xbarChild != NULL) return xbarChild->getStr();
+    else return "";
+}
 bool XBar::find(std::pair<std::string, std::string> pair)
 {
     if(headChild != NULL) return headChild->find(pair);
@@ -145,6 +156,10 @@ void Head::print()
 std::string Head::getPartOfSpeech()
 {
     return partOfSpeech;
+}
+std::string Head::getStr()
+{
+    return str;
 }
 bool Head::find(std::pair<std::string, std::string> pair)
 {

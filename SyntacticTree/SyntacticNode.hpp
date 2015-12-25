@@ -21,6 +21,7 @@ class SyntacticNode
     SyntacticNode();
     
     virtual std::string getPartOfSpeech() = 0;
+    virtual std::string getStr() = 0;
     virtual bool find(std::pair<std::string, std::string> pair) = 0;
     virtual void print() = 0;
     
@@ -40,6 +41,7 @@ class Phrase : public SyntacticNode
     ~Phrase();
     
     std::string getPartOfSpeech();
+    std::string getStr();
     bool find(std::pair<std::string, std::string> pair);
     void print();
     
@@ -58,6 +60,7 @@ class XBar : public SyntacticNode
     ~XBar();
     
     std::string getPartOfSpeech();
+    std::string getStr();
     bool find(std::pair<std::string, std::string> pair);
     void print();
     
@@ -78,6 +81,7 @@ class Head : public SyntacticNode
   
     void print();
     std::string getPartOfSpeech();
+    std::string getStr();
     bool find(std::pair<std::string, std::string> pair);
     
     std::string str;

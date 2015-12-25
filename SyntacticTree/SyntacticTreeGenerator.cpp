@@ -110,15 +110,15 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord, "Verb")));
     }
-    else if(lexicon.verbs.find(notTaggedWord + "ㄹ다") != lexicon.verbs.end())
+    if(lexicon.verbs.find(notTaggedWord + "ㄹ다") != lexicon.verbs.end()) //TODO : 이부분은 normalize 부분으로...
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord + "ㄹ", "Verb")));
     }
-    else if(lexicon.verbs.find(notTaggedWord + "ㅅ다") != lexicon.verbs.end())
+    if(lexicon.verbs.find(notTaggedWord + "ㅅ다") != lexicon.verbs.end())
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord + "ㅅ", "Verb")));
     }
-    else if(lexicon.verbs.find(notTaggedWord + "ㅎ다") != lexicon.verbs.end())
+    if(lexicon.verbs.find(notTaggedWord + "ㅎ다") != lexicon.verbs.end())
     {
         trees.push_back(projectHead(tree, new Head(notTaggedWord + "ㅎ", "Verb")));
     }
@@ -214,14 +214,19 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addPhiToTree(SyntacticTree tr
             
             if(lastPhrase->getPartOfSpeech() == "Verb" || lastPhrase->getPartOfSpeech() == "Predicative")
             {
-                phiAddedTrees.push_back(projectHead(tree, new Head("Ø", "Tense")));
+                phiAddedTrees.push_back(projectHead(tree, new Head("(+pres)", "Tense")));
             }
             if(lastPhrase->getPartOfSpeech() == "Tense")
             {
-                phiAddedTrees.push_back(projectHead(tree, new Head("Ø", "Mood")));
+                if(lastPhrase->getStr() != "(+pres)")
+                {
+                    phiAddedTrees.push_back(projectHead(tree, new Head("Ø", "Mood")));
+                    
+                }
             }
             if(lastPhrase->getPartOfSpeech() == "Mood")
             {
+                
                 phiAddedTrees.push_back(projectHead(tree, new Head("Ø", "Complementizer")));
             }
         }
@@ -295,6 +300,10 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::generatePartOfTrees(std::stri
 }
 std::vector<std::string> SyntacticTreeGenerator::normalize(std::string str)
 {
+    std::vector<std::string> initialList;
+    initialList.push_back(std::string());
+    return initialList;
+    /*
     if(str.empty())
     {
         std::vector<std::string> initialList;
@@ -335,6 +344,7 @@ std::vector<std::string> SyntacticTreeGenerator::normalize(std::string str)
         return newList;
         
     }
+     */
 }
 
 void SyntacticTreeGenerator::generateTrees(std::string str)

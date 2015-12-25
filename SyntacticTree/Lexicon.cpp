@@ -269,6 +269,7 @@ std::set< std::pair<std::string, std::string> > Lexicon::getConjugatablePair(std
         {
             conjugatable.insert(std::make_pair("Adjunct", "Noun"));
         }
+    
         else conjugatable.insert(std::make_pair("Adjunct", "Complementizer"));
         
         
