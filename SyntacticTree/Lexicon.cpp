@@ -238,7 +238,6 @@ std::set< std::pair<std::string, std::string> > Lexicon::getConjugatablePair(std
     {
         if(str == "으ㄴ" || str == "느ㄴ" || str == "ㄴ")
         {
-            //conjugatable.insert(std::make_pair("Complement", "Verb"));
             conjugatable.insert(std::make_pair("Spec", "Tense"));
         }
         else if(str == "으ㄹ" || str == "르ㄹ" || str == "ㄹ")
@@ -267,15 +266,9 @@ std::set< std::pair<std::string, std::string> > Lexicon::getConjugatablePair(std
     }
     else if(pos == "Complementizer")
     {
-        /*
-        if(str == "느ㄴ" || str == "Ø")
-        {
-            conjugatable.insert(std::make_pair("Adjunct", "Noun"));
-        }
-         
-    
-        else */conjugatable.insert(std::make_pair("Adjunct", "Complementizer"));
         
+        conjugatable.insert(std::make_pair("Adjunct", "Complementizer"));
+    
         if(str == "고") conjugatable.insert(std::make_pair("Complement", "Verb"));
         
     }

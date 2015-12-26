@@ -25,16 +25,7 @@ SyntacticTree SyntacticTreeGenerator::projectHead(SyntacticTree tree, Head* h)
     
     //XBar Projection
     XBar* xbar = new XBar(h);
-    
-    /*
-     TODO
-     
-     나중에 함수로 따로 빼내서 XBar가 반복되는 경우를 처리
-     complement를 취할 수 있어도, 취하지 않는 경우의 트리도 만들어야 함.
-     
-     tree에 Head stack이랑 xbar stack을 만들어서
-     tree를 복사해가면서 서로 다르게 projection시킨다.
-     */
+
     //Complement
     if(lastPhrase != NULL)
     {
@@ -48,7 +39,6 @@ SyntacticTree SyntacticTreeGenerator::projectHead(SyntacticTree tree, Head* h)
         }
     }
     
-    //pair(tree, xbar)를 가지고 만들어보자
     
     //Adjunct
     while(lastPhrase != NULL)
@@ -66,9 +56,6 @@ SyntacticTree SyntacticTreeGenerator::projectHead(SyntacticTree tree, Head* h)
         }
         else break;
     }
-    
-    //여기서도 pair(tree, xbar)
-    
     //Phrase Projection
     Phrase* phrase = new Phrase(xbar);
     
@@ -85,7 +72,6 @@ SyntacticTree SyntacticTreeGenerator::projectHead(SyntacticTree tree, Head* h)
         }
     }
     
-    //pair(tree, phrase) -> phrase를 tree에 넣음.
     
     addedTree.phraseStack.push_back(phrase);
     
@@ -195,7 +181,6 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::addCharacter(SyntacticTree tr
      붙을 수 있으면 붙은 것과 붙지 않은 것을 만든다.
      
      */
-    
     
     std::vector<SyntacticTree> phiAddedTrees;
     
