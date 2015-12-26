@@ -307,59 +307,10 @@ std::vector<SyntacticTree> SyntacticTreeGenerator::generatePartOfTrees(std::stri
     }
     
 }
-std::vector<std::string> SyntacticTreeGenerator::normalize(std::string str)
-{
-    std::vector<std::string> initialList;
-    initialList.push_back(std::string());
-    return initialList;
-    /*
-    if(str.empty())
-    {
-        std::vector<std::string> initialList;
-        initialList.push_back(std::string());
-        return initialList;
-    }
-    else
-    {
-        std::vector<std::string> oldList, newList;
-        
-        std::string lastCharacter = Decoder::extractLastCharacter(str);
-        std::string remainder = Decoder::deleteLastCharacter(str);
-        
-        oldList = normalize(remainder);
-        
-        if(Decoder::isHangeul(lastCharacter))
-        {
-            std::string coda = Decoder::extractCoda(lastCharacter);
-            
-            if((coda == "ㄴ") || (coda == "ㄹ") || (coda == "ㅂ") || (coda == "ㅆ"))
-            {
-              
-                for(std::vector<std::string>::iterator nIter = oldList.begin(); nIter != oldList.end(); nIter++)
-                {
-                    newList.push_back((*nIter) + Decoder::deleteCoda(lastCharacter) + coda);
-                }
-                
-            }
-            
-        }
-        
-        for(std::vector<std::string>::iterator nIter = oldList.begin(); nIter != oldList.end(); nIter++)
-        {
-            newList.push_back((*nIter) + lastCharacter);
-        }
-        
-        oldList.clear();
-        return newList;
-        
-    }
-     */
-}
 
 void SyntacticTreeGenerator::generateTrees(std::string str)
 {
     std::vector<std::string> normalizedText = Decoder::normalize(Decoder::decomposeSyllable(str));
-    //normalizedText.push_back(Decoder::decomposeSyllable(str));
     
     for(std::vector<std::string>::iterator nIter = normalizedText.begin(); nIter != normalizedText.end(); nIter++)
     {

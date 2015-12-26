@@ -29,7 +29,6 @@ class SyntacticTreeGenerator
     Lexicon lexicon;
     std::vector<SyntacticTree> trees;
     
-    std::vector<std::string> normalize(std::string str);
     std::vector<SyntacticTree> addPhiToTree(SyntacticTree tree);
     SyntacticTree projectHead(SyntacticTree tree, Head* h);
     std::vector<SyntacticTree> addCharacter(SyntacticTree tree, std::string character);
